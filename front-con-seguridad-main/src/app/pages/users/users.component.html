@@ -1,0 +1,46 @@
+<div class="users-page">
+  <h1>
+    Users
+    <button class="add-btn" (click)="openAddUser()">&#43;</button>
+  </h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>
+          <button type="button" class="btn-link" (click)="openEditUser(user)">Update</button> |
+          <button type="button" class="btn-link" (click)="deleteUser(user)">Delete</button> |
+          <button type="button" class="btn-link" (click)="goToAddress(user.id)">Address</button> |
+          <button type="button" class="btn-link" (click)="goToPasswords(user.id)">Passwords</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Formulario para agregar/editar usuario -->
+  <div *ngIf="selectedUser" class="user-form">
+    <h2>{{ isEditing ? 'Edit User' : 'Add User' }}</h2>
+    <form (ngSubmit)="saveUser()">
+      <label>
+        Name:
+        <input type="text" [(ngModel)]="selectedUser.name" name="name" required />
+      </label>
+      <label>
+        Email:
+        <input type="email" [(ngModel)]="selectedUser.email" name="email" required />
+      </label>
+      <button type="submit">{{ isEditing ? 'Update' : 'Create' }}</button>
+      <button type="button" (click)="selectedUser = null">Cancel</button>
+    </form>
+  </div>
+</div>

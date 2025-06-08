@@ -1,0 +1,29 @@
+.address-page {
+  padding: 2rem;
+}
+.address-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+.address-map {
+  min-width: 300px;
+}
+.address-form label {
+  display: block;
+  margin-bottom: 1rem;
+}
+.address-form input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.2rem;
+  border: 1px solid #ccc;
+}
+button[type="submit"] {
+  width: 100%;
+  padding: 0.5rem;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
