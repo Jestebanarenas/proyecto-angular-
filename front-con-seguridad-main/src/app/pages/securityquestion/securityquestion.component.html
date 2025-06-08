@@ -1,0 +1,23 @@
+<div class="security-question-container">
+  <h2>Preguntas de Seguridad</h2>
+
+  <div class="form-group">
+    <input
+      type="text"
+      [(ngModel)]="newQuestion"
+      placeholder="Escribe una nueva pregunta"
+    />
+    <button (click)="addQuestion()">Agregar</button>
+  </div>
+
+  <div *ngIf="isLoading">Cargando preguntas...</div>
+
+  <ul *ngIf="!isLoading">
+    <li *ngFor="let q of questions">
+      <span>{{ q.question }}</span>
+      <button (click)="toggleStatus(q)">
+        {{ q.isActive ? 'Desactivar' : 'Activar' }}
+      </button>
+    </li>
+  </ul>
+</div>
