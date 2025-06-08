@@ -1,0 +1,33 @@
+<div class="address-page">
+  <h1>FBC - Address</h1>
+  <div class="address-content">
+    <div class="address-map">
+      <div id="map-canvas" style="width: 300px; height: 200px; background: #eee;">
+        <span *ngIf="!address.latitude">No map yet</span>
+      </div>
+    </div>
+    <div class="address-form">
+      <form *ngIf="!address.id" (ngSubmit)="createAddress()">
+        <label>
+          Street:
+          <input type="text" [(ngModel)]="address.street" name="street" required />
+        </label>
+        <label>
+          Number:
+          <input type="text" [(ngModel)]="address.number" name="number" required />
+        </label>
+        <button type="submit">Create</button>
+      </form>
+      <div *ngIf="address.id">
+        <label>
+          Street:
+          <input type="text" [(ngModel)]="address.street" name="street" disabled />
+        </label>
+        <label>
+          Number:
+          <input type="text" [(ngModel)]="address.number" name="number" disabled />
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

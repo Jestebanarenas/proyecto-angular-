@@ -1,0 +1,44 @@
+<div class="roles-page">
+  <h1>
+    Roles
+    <button class="add-btn" (click)="openAddRole()">&#43;</button>
+  </h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of roles">
+        <td>{{role.id}}</td>
+        <td>{{role.name}}</td>
+        <td>{{role.description}}</td>
+        <td>
+          <a href="javascript:void(0)" (click)="openEditRole(role)">Update</a> |
+          <a href="javascript:void(0)" (click)="deleteRole(role)">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Formulario para agregar/editar rol -->
+  <div *ngIf="selectedRole" class="role-form">
+    <h2>{{ isEditing ? 'Edit Role' : 'Add Role' }}</h2>
+    <form (ngSubmit)="saveRole()">
+      <label>
+        Name:
+        <input type="text" [(ngModel)]="selectedRole.name" name="name" required />
+      </label>
+      <label>
+        Description:
+        <textarea [(ngModel)]="selectedRole.description" name="description" rows="3"></textarea>
+      </label>
+      <button type="submit">{{ isEditing ? 'Update' : 'Create' }}</button>
+      <button type="button" (click)="selectedRole = null">Cancel</button>
+    </form>
+  </div>
+</div>

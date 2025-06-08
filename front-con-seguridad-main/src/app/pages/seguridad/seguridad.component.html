@@ -1,0 +1,12 @@
+<div class="seguridad-layout">
+  <aside class="seguridad-sidebar">
+    <ul>
+      <li [class.active]="activeTab === 'users'" (click)="navigate('users')">Users</li>
+      <li [class.active]="activeTab === 'roles'" (click)="navigate('roles')">Roles</li>
+      <li [class.active]="activeTab === 'permissions'" (click)="navigate('permissions')">Permissions</li>
+    </ul>
+  </aside>
+  <main class="seguridad-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>
