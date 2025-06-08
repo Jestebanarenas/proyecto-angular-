@@ -1,0 +1,32 @@
+<h2>Roles del Usuario</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Rol</th>
+      <th>Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ur of userRoles">
+      <td>{{ ur.id }}</td>
+      <td>
+        {{ getRoleName(ur.role_id) }}
+      </td>
+      <td>
+        <a href="javascript:void(0)" (click)="removeRole(ur.id)">Remove Role</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="margin-top: 2rem;">
+  <label>
+    Asignar nuevo rol:
+    <select [(ngModel)]="selectedRoleId">
+      <option [ngValue]="null">Seleccione un rol</option>
+      <option *ngFor="let role of allRoles" [ngValue]="role.id">{{ role.name }}</option>
+    </select>
+  </label>
+  <button (click)="addRole()" [disabled]="!selectedRoleId">Agregar Rol</button>
+</div>
