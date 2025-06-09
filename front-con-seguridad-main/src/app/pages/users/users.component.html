@@ -40,6 +40,10 @@
         Email:
         <input type="email" [(ngModel)]="selectedUser.email" name="email" required />
       </label>
+      <label *ngIf="!isEditing">
+        Password:
+        <input type="password" [(ngModel)]="selectedUser.password" name="password" required />
+      </label>
       <button type="submit">{{ isEditing ? 'Update' : 'Create' }}</button>
       <button type="button" (click)="selectedUser = null">Cancel</button>
     </form>
