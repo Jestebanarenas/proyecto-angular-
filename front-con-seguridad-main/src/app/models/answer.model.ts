@@ -3,8 +3,9 @@ import { SecurityQuestion } from './securityquestion.model';
 
 export interface UserAnswer {
   id: number;
-  user: User;
-  question: SecurityQuestion;
-  answer: string;
-  createdAt: Date;
+  user_id: number;
+  security_question_id: number;
+  content: string;
+  created_at?: Date;
+  updated_at?: Date;
 }

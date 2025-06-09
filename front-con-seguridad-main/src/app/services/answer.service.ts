@@ -8,7 +8,7 @@ import { UserAnswer } from '../models/answer.model';
   providedIn: 'root'
 })
 export class UserAnswerService {
-  private apiUrl = `${environment.apiUrl}/user-answer`;
+  private apiUrl = `${environment.apiUrl}/answers`;
 
   constructor(private http: HttpClient) {}
 
@@ -24,12 +24,15 @@ export class UserAnswerService {
     return this.http.get<UserAnswer>(`${this.apiUrl}/${id}`);
   }
 
-  create(answer: UserAnswer): Observable<UserAnswer> {
-    return this.http.post<UserAnswer>(this.apiUrl, answer);
+  create(userId: number, questionId: number, content: string): Observable<UserAnswer> {
+    return this.http.post<UserAnswer>(
+      `${this.apiUrl}/user/${userId}/question/${questionId}`,
+      { content }
+    );
   }
 
-  update(id: number, answer: UserAnswer): Observable<UserAnswer> {
-    return this.http.put<UserAnswer>(`${this.apiUrl}/${id}`, answer);
+  update(id: number, content: string): Observable<UserAnswer> {
+    return this.http.put<UserAnswer>(`${this.apiUrl}/${id}`, { content });
   }
 
   delete(id: number): Observable<void> {

@@ -4,13 +4,14 @@ import { DigitalSignatureService } from 'src/app/services/digitalsignature.servi
 
 @Component({
   selector: 'app-digital-signature',
-  templateUrl: './digital-signature.component.html',
-  styleUrls: ['./digital-signature.component.scss']
+  templateUrl: './digitalsignature.component.html',
+  styleUrls: ['./digitalsignature.component.scss']
 })
 export class DigitalSignatureComponent implements OnInit {
   signature: DigitalSignature | null = null;
   selectedFile: File | null = null;
   isLoading = false;
+  userId = 1; // Ajustar según contexto real
 
   constructor(private digitalSignatureService: DigitalSignatureService) {}
 
@@ -20,12 +21,13 @@ export class DigitalSignatureComponent implements OnInit {
 
   fetchSignature(): void {
     this.isLoading = true;
-    this.digitalSignatureService.getMySignature().subscribe({
+    this.digitalSignatureService.getByUserId(this.userId).subscribe({
       next: (data) => {
         this.signature = data;
         this.isLoading = false;
       },
       error: () => {
+        this.signature = null;
         this.isLoading = false;
       }
     });
@@ -37,15 +39,15 @@ export class DigitalSignatureComponent implements OnInit {
 
   uploadSignature(): void {
     if (!this.selectedFile) return;
-
-    const formData = new FormData();
-    formData.append('file', this.selectedFile);
-
-    this.digitalSignatureService.uploadSignature(formData).subscribe({
-      next: () => {
-        this.fetchSignature();
-        this.selectedFile = null;
-      }
+    this.digitalSignatureService.create(this.userId, this.selectedFile).subscribe(() => {
+      this.fetchSignature();
+      this.selectedFile = null;
     });
+  }
+
+  getSignatureImageUrl(): string | null {
+    return this.signature?.photo
+      ? this.digitalSignatureService.getSignatureImageUrl(this.signature.photo)
+      : null;
   }
 }

@@ -14,10 +14,7 @@
 
   <ul *ngIf="!isLoading">
     <li *ngFor="let q of questions">
-      <span>{{ q.question }}</span>
-      <button (click)="toggleStatus(q)">
-        {{ q.isActive ? 'Desactivar' : 'Activar' }}
-      </button>
+      <span>{{ q.name }}</span>
     </li>
   </ul>
 </div>

@@ -27,20 +27,42 @@ describe('DigitalSignatureService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get my signature', () => {
+  it('should get signature by user ID', () => {
     const mockSignature: DigitalSignature = {
       id: 1,
-      signatureData: 'data:image/png;base64,...',
-      createdAt: new Date(),
-      user: { id: 1, email: 'test@test.com', password: '', enabled: true, username: '' }
+      user_id: 1,
+      photo: 'signatures/1.png',
+      created_at: new Date(),
+      updated_at: new Date()
     };
 
-    service.getMySignature().subscribe(signature => {
+    service.getByUserId(1).subscribe(signature => {
       expect(signature).toEqual(mockSignature);
     });
 
-    const req = httpMock.expectOne(`${apiUrl}/me`);
+    const req = httpMock.expectOne(`${apiUrl}/user/1`);
     expect(req.request.method).toBe('GET');
+    req.flush(mockSignature);
+  });
+
+  it('should create a new signature', () => {
+    const userId = 1;
+    const file = new File(['dummy'], 'signature.png', { type: 'image/png' });
+    const mockSignature: DigitalSignature = {
+      id: 2,
+      user_id: userId,
+      photo: 'signatures/2.png',
+      created_at: new Date(),
+      updated_at: new Date()
+    };
+
+    service.create(userId, file).subscribe(signature => {
+      expect(signature).toEqual(mockSignature);
+    });
+
+    const req = httpMock.expectOne(`${apiUrl}/user/${userId}`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body instanceof FormData).toBeTrue();
     req.flush(mockSignature);
   });
 });

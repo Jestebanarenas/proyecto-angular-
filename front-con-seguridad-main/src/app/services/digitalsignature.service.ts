@@ -8,23 +8,40 @@ import { DigitalSignature } from '../models/digitalsignature.model';
   providedIn: 'root'
 })
 export class DigitalSignatureService {
-  private apiUrl = 'http://127.0.0.1:5000/api/addresses';
+  private apiUrl = `${environment.apiUrl}/digital-signature`;
 
   constructor(private http: HttpClient) {}
 
-  getMySignature(): Observable<DigitalSignature> {
-    return this.http.get<DigitalSignature>(`${this.apiUrl}/me`);
+  getAll(): Observable<DigitalSignature[]> {
+    return this.http.get<DigitalSignature[]>(`${this.apiUrl}/`);
   }
 
-  uploadSignature(data: FormData): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/upload`, data);
+  getById(id: number): Observable<DigitalSignature> {
+    return this.http.get<DigitalSignature>(`${this.apiUrl}/${id}`);
   }
 
   getByUserId(userId: number): Observable<DigitalSignature> {
     return this.http.get<DigitalSignature>(`${this.apiUrl}/user/${userId}`);
   }
 
-  deleteSignature(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  create(userId: number, file: File): Observable<DigitalSignature> {
+    const formData = new FormData();
+    formData.append('photo', file);
+    return this.http.post<DigitalSignature>(`${this.apiUrl}/user/${userId}`, formData);
+  }
+
+  update(signatureId: number, file: File): Observable<DigitalSignature> {
+    const formData = new FormData();
+    formData.append('photo', file);
+    return this.http.put<DigitalSignature>(`${this.apiUrl}/${signatureId}`, formData);
+  }
+
+  delete(signatureId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${signatureId}`);
+  }
+
+  getSignatureImageUrl(photoPath: string): string {
+    // Devuelve la URL absoluta para mostrar la imagen
+    return `${this.apiUrl}/${photoPath}`;
   }
 }

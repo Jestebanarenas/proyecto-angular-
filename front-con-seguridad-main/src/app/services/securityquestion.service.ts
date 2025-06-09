@@ -8,23 +8,23 @@ import { SecurityQuestion } from '../models/securityquestion.model';
   providedIn: 'root'
 })
 export class SecurityQuestionService {
-  private apiUrl = 'http://127.0.0.1:5000/api/addresses';
+  private apiUrl = `${environment.apiUrl}/security-question`;
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<SecurityQuestion[]> {
-    return this.http.get<SecurityQuestion[]>(this.apiUrl);
+    return this.http.get<SecurityQuestion[]>(`${this.apiUrl}/`);
   }
 
   getById(id: number): Observable<SecurityQuestion> {
     return this.http.get<SecurityQuestion>(`${this.apiUrl}/${id}`);
   }
 
-  create(question: SecurityQuestion): Observable<SecurityQuestion> {
-    return this.http.post<SecurityQuestion>(this.apiUrl, question);
+  create(question: { name: string; description?: string }): Observable<SecurityQuestion> {
+    return this.http.post<SecurityQuestion>(`${this.apiUrl}/`, question);
   }
 
-  update(id: number, question: SecurityQuestion): Observable<SecurityQuestion> {
+  update(id: number, question: { name: string; description?: string }): Observable<SecurityQuestion> {
     return this.http.put<SecurityQuestion>(`${this.apiUrl}/${id}`, question);
   }
 

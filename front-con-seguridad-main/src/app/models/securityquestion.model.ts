@@ -1,6 +1,7 @@
 export interface SecurityQuestion {
   id: number;
-  question: string;
-  isActive: boolean;
-  createdAt?: Date;
+  name: string;
+  description?: string;
+  created_at?: Date;
+  updated_at?: Date;
 }

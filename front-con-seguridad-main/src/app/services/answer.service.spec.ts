@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 describe('UserAnswerService', () => {
   let service: UserAnswerService;
   let httpMock: HttpTestingController;
-  const apiUrl = `${environment.apiUrl}/user-answer`;
+  const apiUrl = `${environment.apiUrl}/answers`;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,26 +34,31 @@ describe('UserAnswerService', () => {
       expect(data).toEqual(mockAnswers);
     });
 
-    const req = httpMock.expectOne(apiUrl);
+    const req = httpMock.expectOne(`${apiUrl}/`);
     expect(req.request.method).toBe('GET');
     req.flush(mockAnswers);
   });
 
   it('should create an answer', () => {
+    const userId = 1;
+    const questionId = 2;
+    const content = 'Mi respuesta';
     const newAnswer: UserAnswer = {
       id: 1,
-      answer: 'Mi respuesta',
-      createdAt: new Date(),
-      user: { id: 1, email: '', password: '', username: '', enabled: true },
-      question: { id: 1, question: 'Pregunta?', isActive: true }
+      user_id: userId,
+      security_question_id: questionId,
+      content: content,
+      created_at: new Date(),
+      updated_at: new Date()
     };
 
-    service.create(newAnswer).subscribe(data => {
+    service.create(userId, questionId, content).subscribe(data => {
       expect(data).toEqual(newAnswer);
     });
 
-    const req = httpMock.expectOne(apiUrl);
+    const req = httpMock.expectOne(`${apiUrl}/user/${userId}/question/${questionId}`);
     expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ content });
     req.flush(newAnswer);
   });
 });

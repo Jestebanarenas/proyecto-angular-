@@ -29,31 +29,32 @@ describe('SecurityQuestionService', () => {
 
   it('should get all security questions', () => {
     const mockQuestions: SecurityQuestion[] = [
-      { id: 1, question: '¿Color favorito?', isActive: true }
+      { id: 1, name: '¿Color favorito?' }
     ];
 
     service.getAll().subscribe(data => {
       expect(data).toEqual(mockQuestions);
     });
 
-    const req = httpMock.expectOne(apiUrl);
+    const req = httpMock.expectOne(`${apiUrl}/`);
     expect(req.request.method).toBe('GET');
     req.flush(mockQuestions);
   });
 
   it('should create a new question', () => {
-    const newQuestion: SecurityQuestion = {
+    const newQuestion = { name: '¿Nombre de tu mascota?' };
+    const createdQuestion: SecurityQuestion = {
       id: 2,
-      question: '¿Nombre de tu mascota?',
-      isActive: true
+      name: '¿Nombre de tu mascota?'
     };
 
     service.create(newQuestion).subscribe(data => {
-      expect(data).toEqual(newQuestion);
+      expect(data).toEqual(createdQuestion);
     });
 
-    const req = httpMock.expectOne(apiUrl);
+    const req = httpMock.expectOne(`${apiUrl}/`);
     expect(req.request.method).toBe('POST');
-    req.flush(newQuestion);
+    expect(req.request.body).toEqual(newQuestion);
+    req.flush(createdQuestion);
   });
 });
