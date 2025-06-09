@@ -20,7 +20,11 @@ export const ROUTES: RouteInfo[] = [
     { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '',type:0 },
     { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '',type:0 },
     { path: '/theaters/list', title: 'Teatros',  icon:'ni-circle-08 text-pink', class: '',type:1 },
-    { path: '/seguridad', title: 'Seguridad',  icon:'ni-lock-circle-open text-info', class: '',type:1 }
+    { path: '/seguridad', title: 'Seguridad',  icon:'ni-lock-circle-open text-info', class: '',type:1 },
+    { path: '/digital-signature', title: 'Firma Digital', icon: 'ni-ruler-pencil text-purple', class: '', type: 2 },
+    { path: '/security-questions', title: 'Preguntas de Seguridad', icon: 'ni-key-25 text-red', class: '', type: 2 },
+    { path: '/answers', title: 'Respuestas de Seguridad', icon: 'ni-lock-circle-open text-info', class: '', type: 2 },
+    { path: '/devices', title: 'Dispositivos', icon: 'ni-mobile-button text-success', class: '', type: 2 }
 ];
 
 @Component({
