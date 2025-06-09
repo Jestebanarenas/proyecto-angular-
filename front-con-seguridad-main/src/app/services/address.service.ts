@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Address } from '../models/address.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddressService {
-  private apiUrl = 'http://127.0.0.1:5000/api/addresses';
+  private apiUrl = `${environment.url_api_base}/addresses`;
 
   constructor(private http: HttpClient) {}
 
