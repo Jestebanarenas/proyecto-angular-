@@ -77,6 +77,9 @@ export class UsersComponent implements OnInit {
   goToPasswords(userId: number) {
     this.router.navigate(['/seguridad/passwords', userId]);
   }
+  goToProfile(userId: number) {
+    this.router.navigate(['../profile', userId], { relativeTo: this.route });
+  }
 }
 
 

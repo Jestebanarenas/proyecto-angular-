@@ -5,6 +5,7 @@ import { UsersComponent } from '../users/users.component';
 import { RolesComponent } from '../roles/roles.component';
 import { AddressComponent } from '../address/address.component';
 import { PasswordsComponent } from '../passwords/passwords.component';
+import { ProfileComponent } from '../profile/profile.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'roles', component: RolesComponent },
       { path: 'address/:id', component: AddressComponent },  // <-- Cambia aquí
       { path: 'passwords/:id', component: PasswordsComponent },
+      { path: 'profile/:userId', component: ProfileComponent },
       // { path: 'permissions', component: PermissionsComponent },
     ]
   }
