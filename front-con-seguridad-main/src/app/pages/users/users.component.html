@@ -18,8 +18,11 @@
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
         <td>
-          <a [routerLink]="['/seguridad/user-role', user.id]">Roles</a> |
-          <a [routerLink]="['/seguridad/passwords', user.id]">Password</a>
+          <button type="button" class="btn-link" (click)="openEditUser(user)">Update</button> |
+          <button type="button" class="btn-link" (click)="deleteUser(user)">Delete</button> |
+          <button type="button" class="btn-link" (click)="goToAddress(user.id)">Address</button> |
+          <button type="button" class="btn-link" (click)="goToPasswords(user.id)">Passwords</button> |
+          <button type="button" class="btn-link" (click)="goToRoles(user.id)">Roles</button>
         </td>
       </tr>
     </tbody>
