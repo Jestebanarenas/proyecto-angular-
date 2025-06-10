@@ -25,4 +25,25 @@
       </tr>
     </tbody>
   </table>
+
+  <div *ngIf="editingPermission" class="edit-form">
+    <h2>Edit Permission</h2>
+    <form (ngSubmit)="saveUpdate()">
+      <label>
+        Url:
+        <input type="text" [(ngModel)]="editingPermission.url" name="url" required>
+      </label>
+      <label>
+        Method:
+        <select [(ngModel)]="editingPermission.method" name="method" required>
+          <option value="GET">GET</option>
+          <option value="POST">POST</option>
+          <option value="PUT">PUT</option>
+          <option value="DELETE">DELETE</option>
+        </select>
+      </label>
+      <button type="submit">Save</button>
+      <button type="button" (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
 </div>

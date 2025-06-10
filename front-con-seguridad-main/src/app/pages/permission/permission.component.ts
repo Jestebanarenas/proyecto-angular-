@@ -9,6 +9,7 @@ import { PermissionService, Permission } from '../../services/permission.service
 })
 export class PermissionComponent implements OnInit {
   permissions: Permission[] = [];
+  editingPermission: Permission | null = null; // <--- NUEVO
 
   constructor(
     private permissionService: PermissionService,
@@ -37,8 +38,26 @@ export class PermissionComponent implements OnInit {
   }
 
   updatePermission(permission: Permission) {
-    // Lógica para actualizar
-    alert(`Update permission: ${permission.id}`);
+    // Mostrar el formulario de edición con los datos actuales
+    this.editingPermission = { ...permission };
+  }
+
+  saveUpdate() {
+    if (this.editingPermission) {
+      this.permissionService.updatePermission(this.editingPermission.id, this.editingPermission).subscribe({
+        next: () => {
+          this.editingPermission = null;
+          this.loadPermissions();
+        },
+        error: (error) => {
+          console.error('Error updating permission:', error);
+        }
+      });
+    }
+  }
+
+  cancelEdit() {
+    this.editingPermission = null;
   }
 
   deletePermission(permission: Permission) {
