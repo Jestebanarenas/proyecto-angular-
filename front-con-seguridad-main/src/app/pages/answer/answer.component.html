@@ -3,14 +3,15 @@
 
   <div class="form-group">
     <label for="question">Pregunta:</label>
-    <select id="question" [(ngModel)]="selectedQuestionId">
-      <option *ngFor="let q of questions" [value]="q.id">{{ q.question }}</option>
+    <select id="question" [(ngModel)]="selectedQuestionId" name="question">
+      <option value="" disabled>Selecciona una pregunta</option>
+      <option *ngFor="let q of questions" [value]="q.id">{{ q.name }}</option>
     </select>
   </div>
 
   <div class="form-group">
     <label for="answer">Tu respuesta:</label>
-    <input id="answer" type="text" [(ngModel)]="answerText" />
+    <input id="answer" type="text" [(ngModel)]="answerText" name="answer" />
   </div>
 
   <button (click)="saveAnswer()">
@@ -19,9 +20,15 @@
   <button *ngIf="editingAnswer" (click)="resetForm()">Cancelar</button>
 
   <h3>Mis Respuestas</h3>
-  <ul>
+  <div *ngIf="userAnswers.length === 0">
+    <p>No tienes respuestas guardadas aún.</p>
+  </div>
+  <ul *ngIf="userAnswers.length > 0">
     <li *ngFor="let ua of userAnswers">
-      <strong>{{ ua.question?.question || ua.security_question_id }}:</strong> {{ ua.content }}
+      <strong>Pregunta ID {{ ua.security_question_id }}:</strong> {{ ua.content }}
+      <br>
+      <small *ngIf="ua.security_question">{{ ua.security_question.name }}</small>
+      <br>
       <button (click)="editAnswer(ua)">Editar</button>
       <button (click)="deleteAnswer(ua)">Eliminar</button>
     </li>

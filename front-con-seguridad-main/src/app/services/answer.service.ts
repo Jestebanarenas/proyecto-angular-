@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { UserAnswer } from '../models/answer.model';
 
 @Injectable({
@@ -17,7 +18,12 @@ export class UserAnswerService {
   }
 
   getByUserId(userId: number): Observable<UserAnswer[]> {
-    return this.http.get<UserAnswer[]>(`${this.apiUrl}/user/${userId}`);
+    return this.http.get<UserAnswer[]>(`${this.apiUrl}/user/${userId}`)
+      .pipe(
+        catchError(error => {
+          throw error;
+        })
+      );
   }
 
   getById(id: number): Observable<UserAnswer> {
