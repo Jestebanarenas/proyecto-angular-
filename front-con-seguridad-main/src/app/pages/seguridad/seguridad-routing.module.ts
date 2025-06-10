@@ -18,8 +18,6 @@ const routes: Routes = [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },
       { path: 'roles', component: RolesComponent },
-      { path: 'permissions', component: PermissionComponent },
-      { path: 'permissions/create', component: PermissionCreateComponent },
       { path: 'address/:id', component: AddressComponent },
       { path: 'passwords/:id', component: PasswordsComponent },
       { path: 'profile/:userId', component: ProfileComponent },
