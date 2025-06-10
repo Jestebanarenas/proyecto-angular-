@@ -36,7 +36,11 @@ export class NavbarComponent implements OnInit {
   }
   logout(){
     this.securityService.logout();
-    this.authService.signOut();
+    // Verificar si el usuario está logueado con Google antes de hacer signOut
+    if (this.socialUser) {
+      this.authService.signOut();
+    }
+    this.router.navigate(['/login']);
   }
 
   ngOnInit() {

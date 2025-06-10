@@ -82,6 +82,7 @@ export class SecurityService {
     localStorage.removeItem('sesion');
     this.setUser(new User());
   }
+
   /**
   * Permite verificar si actualmente en el local storage
   * existe información de un usuario previamente logueado
