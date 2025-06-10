@@ -6,7 +6,7 @@ import { SeguridadRoutingModule } from './seguridad-routing.module';
 import { RolesComponent } from '../roles/roles.component';
 import { AddressComponent } from '../address/address.component';
 import { PasswordsComponent } from '../passwords/passwords.component';
-import { ProfileComponent } from '../profile/profile.component'; // <-- Importa el componente Profile
+import { ProfileComponent } from '../profile/profile.component';
 import { PermissionComponent } from '../permission/permission.component';
 import { PermissionCreateComponent } from '../permission-create/permission-create.component';
 import { RolePermissionComponent } from '../role-permission/role-permission.component';

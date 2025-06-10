@@ -17,8 +17,17 @@ export class PermissionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.permissionService.getAllPermissions().subscribe(data => {
-      this.permissions = data;
+    this.loadPermissions();
+  }
+
+  loadPermissions(): void {
+    this.permissionService.getAllPermissions().subscribe({
+      next: (data) => {
+        this.permissions = data;
+      },
+      error: (error) => {
+        console.error('Error loading permissions:', error);
+      }
     });
   }
 
@@ -33,15 +42,20 @@ export class PermissionComponent implements OnInit {
   }
 
   deletePermission(permission: Permission) {
-    // Lógica para eliminar
     if (confirm('Are you sure you want to delete this permission?')) {
-      this.permissionService.deletePermission(permission.id).subscribe(() => {
-        this.permissions = this.permissions.filter(p => p.id !== permission.id);
+      this.permissionService.deletePermission(permission.id!).subscribe({
+        next: () => {
+          this.loadPermissions(); // Recargar la lista después de eliminar
+        },
+        error: (error) => {
+          console.error('Error deleting permission:', error);
+        }
       });
     }
   }
 
   addPermission() {
+    // Navegar a la página de creación de permisos
     this.router.navigate(['create'], { relativeTo: this.route });
   }
 }
