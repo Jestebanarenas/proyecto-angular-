@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   url_ms_cinema: "https://932aea28-0e47-46d2-b426-4635b17c51cd.mock.pstmn.io",
   url_ms_security: "https://560edd48-169d-462f-be3a-1eff797d5d1e.mock.pstmn.io",
-  url_ms_security_local: "http://localhost:5000" // <--- Agregado para backend local
+  url_ms_security_local: "http://localhost:5000", // <--- Agregado para backend local
+  url_api_base: "http://127.0.0.1:5000/api"
 };
 
 /*

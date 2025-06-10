@@ -9,6 +9,7 @@ import { ProfileComponent } from '../profile/profile.component';
 import { PermissionComponent } from '../permission/permission.component';
 import { PermissionCreateComponent } from '../permission-create/permission-create.component';
 import { RolePermissionComponent } from '../role-permission/role-permission.component';
+import { UserRoleComponent } from '../user-role/user-role.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
       { path: 'passwords/:id', component: PasswordsComponent },
       { path: 'profile/:userId', component: ProfileComponent },
       { path: 'role-permissions', component: RolePermissionComponent },
+      { path: 'address/:id', component: AddressComponent },
+      { path: 'passwords/:id', component: PasswordsComponent },
+      { path: 'user-role/:id', component: UserRoleComponent },
+      // { path: 'permissions', component: PermissionsComponent },
     ]
   }
 ];

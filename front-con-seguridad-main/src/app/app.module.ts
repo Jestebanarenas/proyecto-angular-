@@ -12,6 +12,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
+import { UserRoleComponent } from './pages/user-role/user-role.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { ComponentsModule } from './components/components.module';
     AdminLayoutComponent,
     AuthLayoutComponent,
     UsersComponent,
+    UserRoleComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

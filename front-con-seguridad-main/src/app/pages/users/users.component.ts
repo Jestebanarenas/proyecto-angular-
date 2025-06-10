@@ -99,6 +99,10 @@ export class UsersComponent implements OnInit {
     this.router.navigate(['../address', userId], { relativeTo: this.route });
   }
 
+  goToRoles(userId: number) {
+    this.router.navigate(['/seguridad/user-role', userId]);
+  }
+
   goToPasswords(userId: number) {
     this.router.navigate(['/seguridad/passwords', userId]);
   }
