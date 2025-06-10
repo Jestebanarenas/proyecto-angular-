@@ -8,6 +8,8 @@ import { AddressComponent } from '../address/address.component';
 import { PasswordsComponent } from '../passwords/passwords.component';
 import { ProfileComponent } from '../profile/profile.component'; // <-- Importa el componente Profile
 import { PermissionComponent } from '../permission/permission.component';
+import { PermissionCreateComponent } from '../permission-create/permission-create.component';
+import { RolePermissionComponent } from '../role-permission/role-permission.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { PermissionComponent } from '../permission/permission.component';
     AddressComponent,
     PasswordsComponent,
     ProfileComponent,
-    PermissionComponent // <-- Agrega aquí
+    PermissionComponent,
+    PermissionCreateComponent,      
+    RolePermissionComponent         
   ],
   imports: [
     CommonModule,

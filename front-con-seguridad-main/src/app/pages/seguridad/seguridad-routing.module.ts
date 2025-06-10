@@ -8,6 +8,7 @@ import { PasswordsComponent } from '../passwords/passwords.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { PermissionComponent } from '../permission/permission.component';
 import { PermissionCreateComponent } from '../permission-create/permission-create.component';
+import { RolePermissionComponent } from '../role-permission/role-permission.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'address/:id', component: AddressComponent },
       { path: 'passwords/:id', component: PasswordsComponent },
       { path: 'profile/:userId', component: ProfileComponent },
+      { path: 'role-permissions', component: RolePermissionComponent },
     ]
   }
 ];

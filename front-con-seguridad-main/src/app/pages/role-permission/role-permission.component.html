@@ -1,0 +1,26 @@
+<div class="role-permission-container">
+  <h1>Administrator - Permissions</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>View</th>
+        <th>List</th>
+        <th>Create</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let model of models">
+        <td>{{ model.name }}</td>
+        <td><input type="checkbox" [(ngModel)]="model.permissions.view"></td>
+        <td><input type="checkbox" [(ngModel)]="model.permissions.list"></td>
+        <td><input type="checkbox" [(ngModel)]="model.permissions.create"></td>
+        <td><input type="checkbox" [(ngModel)]="model.permissions.update"></td>
+        <td><input type="checkbox" [(ngModel)]="model.permissions.delete"></td>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="savePermissions()">Save</button>
+</div>

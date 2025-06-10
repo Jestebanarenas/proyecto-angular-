@@ -18,8 +18,9 @@
         <td>{{role.name}}</td>
         <td>{{role.description}}</td>
         <td>
-          <a href="javascript:void(0)" (click)="openEditRole(role)">Update</a> |
-          <a href="javascript:void(0)" (click)="deleteRole(role)">Delete</a>
+          <button type="button" class="btn-link" (click)="goToRolePermissions(role.id)">Permissions</button> |
+          <a href="#" (click)="openEditRole(role); $event.preventDefault()">Update</a> |
+          <a href="#" (click)="deleteRole(role); $event.preventDefault()">Delete</a>
         </td>
       </tr>
     </tbody>
@@ -42,3 +43,9 @@
     </form>
   </div>
 </div>
+
+<script>
+goToRolePermissions(roleId: number) {
+  this.router.navigate(['/seguridad/role-permissions'], { queryParams: { roleId } });
+}
+</script>

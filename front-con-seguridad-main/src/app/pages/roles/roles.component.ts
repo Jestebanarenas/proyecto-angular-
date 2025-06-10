@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RoleService } from '../../services/role.service';
 import { Role } from '../../models/role.model';
 
@@ -12,7 +13,7 @@ export class RolesComponent implements OnInit {
   selectedRole: Role | null = null;
   isEditing: boolean = false;
 
-  constructor(private roleService: RoleService) {}
+  constructor(private roleService: RoleService, private router: Router) {}
 
   ngOnInit() {
     this.getRoles();
@@ -60,5 +61,9 @@ export class RolesComponent implements OnInit {
         console.error('Error deleting role:', error);
       });
     }
+  }
+
+  goToRolePermissions(roleId: number) {
+    this.router.navigate(['/seguridad/role-permissions'], { queryParams: { roleId } });
   }
 }

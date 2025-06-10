@@ -12,7 +12,6 @@ import { UsersComponent } from './pages/users/users.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-import { PermissionCreateComponent } from './pages/permission-create/permission-create.component';
 
 @NgModule({
   imports: [
@@ -29,7 +28,6 @@ import { PermissionCreateComponent } from './pages/permission-create/permission-
     AdminLayoutComponent,
     AuthLayoutComponent,
     UsersComponent,
-    PermissionCreateComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
