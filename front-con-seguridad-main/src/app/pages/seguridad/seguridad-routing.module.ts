@@ -19,16 +19,13 @@ const routes: Routes = [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },
       { path: 'roles', component: RolesComponent },
-      { path: 'permissions', component: PermissionComponent }, // Agregar esta ruta
-      { path: 'permissions/create', component: PermissionCreateComponent }, // Agregar esta ruta
-      { path: 'address/:id', component: AddressComponent },
-      { path: 'passwords/:id', component: PasswordsComponent },
-      { path: 'profile/:userId', component: ProfileComponent },
+      { path: 'permissions', component: PermissionComponent },
+      { path: 'permissions/create', component: PermissionCreateComponent },
       { path: 'role-permissions', component: RolePermissionComponent },
       { path: 'address/:id', component: AddressComponent },
       { path: 'passwords/:id', component: PasswordsComponent },
-      { path: 'user-role/:id', component: UserRoleComponent },
-      // { path: 'permissions', component: PermissionsComponent },
+      { path: 'profile/:userId', component: ProfileComponent },
+      { path: 'user-role/:id', component: UserRoleComponent }
     ]
   }
 ];
