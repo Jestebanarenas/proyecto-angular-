@@ -6,12 +6,9 @@ import { SeguridadRoutingModule } from './seguridad-routing.module';
 import { RolesComponent } from '../roles/roles.component';
 import { AddressComponent } from '../address/address.component';
 import { PasswordsComponent } from '../passwords/passwords.component';
-import { RouterModule } from '@angular/router';
-import { SecurityService } from 'src/app/services/security.service';
-import { SecurityQuestionService } from 'src/app/services/securityquestion.service';
-import { UserAnswerService } from 'src/app/services/answer.service';
-import { UserService } from 'src/app/services/user.service';
-
+import { DigitalSignatureComponent } from '../digitalsignature/digitalsignature.component';
+import { DeviceComponent } from '../device/device.component';
+// Agregar estos componentes que están usando ngModel
 
 @NgModule({
   declarations: [
@@ -19,15 +16,12 @@ import { UserService } from 'src/app/services/user.service';
     RolesComponent,
     AddressComponent,
     PasswordsComponent,
-    RouterModule,
-    SecurityService,
-    SecurityQuestionService,
-    UserAnswerService,
-    UserService
+    DigitalSignatureComponent,
+    DeviceComponent,
   ],
   imports: [
     CommonModule,
-    FormsModule,
+    FormsModule, // Esto es crucial para ngModel
     SeguridadRoutingModule
   ]
 })

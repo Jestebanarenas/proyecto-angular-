@@ -13,12 +13,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
-
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,
-    FormsModule,
+    FormsModule, // Asegúrate de que esté aquí
     HttpClientModule,
     ComponentsModule,
     NgbModule,
@@ -30,7 +28,6 @@ import { ComponentsModule } from './components/components.module';
     AdminLayoutComponent,
     AuthLayoutComponent,
     UsersComponent,
-
   ],
   providers: [],
   bootstrap: [AppComponent]

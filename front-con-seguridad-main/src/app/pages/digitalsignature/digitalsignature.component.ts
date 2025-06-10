@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { DigitalSignature } from 'src/app/models/digitalsignature.model';
 import { DigitalSignatureService } from 'src/app/services/digitalsignature.service';
 
@@ -11,12 +12,21 @@ export class DigitalSignatureComponent implements OnInit {
   signature: DigitalSignature | null = null;
   selectedFile: File | null = null;
   isLoading = false;
-  userId = 1; // Ajustar según contexto real
+  userId: number = 1;
 
-  constructor(private digitalSignatureService: DigitalSignatureService) {}
+  constructor(
+    private digitalSignatureService: DigitalSignatureService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.fetchSignature();
+    // Obtener el userId de la ruta
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.userId = +params['id'];
+      }
+      this.fetchSignature();
+    });
   }
 
   fetchSignature(): void {
