@@ -1,0 +1,19 @@
+nav.navbar {
+  background: #233876 !important; // Azul intenso
+  border-bottom: 3px solid #2563eb; // Borde azul vibrante
+  box-shadow: 0 2px 8px rgba(44, 50, 80, 0.08);
+
+  .h4, .text-white, .navbar-nav .nav-link, .navbar-nav .dropdown-item, .media-body span {
+    color: #fff !important;
+  }
+
+  .navbar-nav .dropdown-menu {
+    background: #233876;
+    border: 1px solid #2563eb;
+  }
+
+  .navbar-nav .dropdown-item:hover {
+    background: #2563eb;
+    color: #fff !important;
+  }
+}

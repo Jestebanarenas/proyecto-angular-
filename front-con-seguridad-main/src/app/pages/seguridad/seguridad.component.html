@@ -1,6 +1,10 @@
 <div class="seguridad-layout">
+  <nav class="responsive-top-menu">
+    <a [class.active]="activeTab === 'users'" (click)="navigate('users')">Users</a>
+    <a [class.active]="activeTab === 'roles'" (click)="navigate('roles')">Roles</a>
+    <a [class.active]="activeTab === 'permissions'" (click)="navigate('permissions')">Permissions</a>
+  </nav>
   <aside class="seguridad-sidebar">
-    <!-- Ejemplo de sidebar -->
     <ul>
       <li [class.active]="activeTab === 'users'" (click)="navigate('users')">Users</li>
       <li [class.active]="activeTab === 'roles'" (click)="navigate('roles')">Roles</li>

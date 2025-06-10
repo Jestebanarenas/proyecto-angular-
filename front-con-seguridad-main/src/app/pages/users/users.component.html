@@ -15,10 +15,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of users">
-        <td>{{ user.id }}</td>
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <td>
+        <td data-label="ID">{{ user.id }}</td>
+        <td data-label="Nombre">{{ user.name }}</td>
+        <td data-label="Email">{{ user.email }}</td>
+        <td data-label="Acciones">
           <button class="btn-link" (click)="editUser(user)">Editar</button> |
           <button class="btn-link" (click)="deleteUser(user.id)">Eliminar</button> |
           <button class="btn-link" (click)="goToAddress(user.id)">Dirección</button> |
