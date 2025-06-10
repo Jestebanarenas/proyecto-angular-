@@ -1,19 +1,49 @@
-<div *ngIf="!profile">
-  <p>No se encontró el perfil para este usuario.</p>
-</div>
-<div class="profile-container" *ngIf="profile">
-  <h1>{{ profile.user?.name }} - Profile</h1>
-  <div class="profile-content">
+<div class="profile-container">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h1>{{ user?.name || 'User' }} - Profile</h1>
+    <button type="button" (click)="goBack()" style="padding: 8px 16px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">
+      Back to Users
+    </button>
+  </div>
+
+  <!-- Profile not found - option to create -->
+  <div *ngIf="profileNotFound" class="no-profile">
+    <p>No profile found for this user.</p>
+    <button (click)="createProfile()" class="create-btn">Create Profile</button>
+  </div>
+
+  <!-- Profile exists - show content -->
+  <div *ngIf="profile && !isEditing" class="profile-content">
     <img
       class="profile-photo"
       *ngIf="profile.photo"
       [src]="'http://localhost:5000/profile/' + profile.photo"
-      alt="Foto de perfil"
+      alt="Profile photo"
     >
     <div class="profile-info">
-      <p><strong>Name:</strong> {{ profile.user?.name }}</p>
-      <p><strong>Email:</strong> {{ profile.user?.email }}</p>
-      <p><strong>Phone:</strong> {{ profile.phone }}</p>
+      <p><strong>Name:</strong> {{ user?.name }}</p>
+      <p><strong>Email:</strong> {{ user?.email }}</p>
+      <p><strong>Phone:</strong> {{ profile.phone || 'No phone number' }}</p>
     </div>
+    <button (click)="startEditing()" class="edit-btn">Edit Profile</button>
+  </div>
+
+  <!-- Edit Form -->
+  <div class="profile-edit" *ngIf="isEditing">
+    <h2>Edit Profile</h2>
+    <form (ngSubmit)="updateProfile()">
+      <label>
+        Phone:
+        <input type="text" [(ngModel)]="newProfile.phone" name="phone" />
+      </label>
+      <label>
+        Photo:
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+      </label>
+      <div class="form-buttons">
+        <button type="submit">Save</button>
+        <button type="button" (click)="cancelEditing()">Cancel</button>
+      </div>
+    </form>
   </div>
 </div>
