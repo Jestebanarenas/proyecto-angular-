@@ -18,15 +18,15 @@
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
         <td>
-          <button type="button" class="btn-link" (click)="viewUser(user.id)">View</button> |
-          <button type="button" class="btn-link" (click)="openEditUser(user)">Update</button> |
-          <button type="button" class="btn-link" (click)="deleteUser(user)">Delete</button> |
-          <button type="button" class="btn-link" (click)="goToProfile(user.id)">Profile</button> |
-          <button type="button" class="btn-link" (click)="goToAddress(user.id)">Address</button> |
-          <button type="button" class="btn-link" (click)="goToDigitalSignature(user.id)">Digital Signature</button> |
-          <button type="button" class="btn-link" (click)="goToDevices(user.id)">Devices</button> |
-          <button type="button" class="btn-link" (click)="goToPasswords(user.id)">Passwords</button> |
-          <button type="button" class="btn-link" (click)="goToSessions(user.id)">Sessions</button>
+          <a (click)="viewUser(user.id)">View</a> |
+          <a (click)="openEditUser(user)">Update</a> |
+          <a (click)="deleteUser(user)">Delete</a> |
+          <a (click)="goToProfile(user.id)">Profile</a> |
+          <a (click)="goToAddress(user.id)">Address</a> |
+          <a (click)="goToDigitalSignature(user.id)">Digital Signature</a> |
+          <a (click)="goToDevices(user.id)">Devices</a> |
+          <a (click)="goToPasswords(user.id)">Passwords</a> |
+          <a (click)="goToSessions(user.id)">Sessions</a>
         </td>
       </tr>
     </tbody>
@@ -38,13 +38,17 @@
     <form (ngSubmit)="saveUser()">
       <label>
         Name:
-        <input type="text" [(ngModel)]="selectedUser.name" name="name" required />
+        <input [(ngModel)]="selectedUser.name" name="name" required />
       </label>
       <label>
         Email:
-        <input type="email" [(ngModel)]="selectedUser.email" name="email" required />
+        <input [(ngModel)]="selectedUser.email" name="email" required />
       </label>
-      <button type="submit">{{ isEditing ? 'Update' : 'Create' }}</button>
+      <label *ngIf="!isEditing">
+        Password:
+        <input [(ngModel)]="selectedUser.password" name="password" type="password" required />
+      </label>
+      <button type="submit">{{ isEditing ? 'Update' : 'Add' }}</button>
       <button type="button" (click)="selectedUser = null">Cancel</button>
     </form>
   </div>

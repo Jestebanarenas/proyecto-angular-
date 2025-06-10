@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { User } from '../../models/user.model';
+import { User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,8 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
   users: User[] = [];
-  selectedUser: User | null = null; // Para manejar el usuario seleccionado
-  isEditing: boolean = false; // Indica si estamos en modo edición
+  selectedUser: User | null = null;
+  isEditing: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -28,35 +28,26 @@ export class UsersComponent implements OnInit {
   }
 
   openAddUser() {
-    this.selectedUser = { id: null, name: '', email: '', password: '' }; // Usuario vacío para agregar
+    this.selectedUser = { email: '', name: '', password: '' };
     this.isEditing = false;
   }
 
   openEditUser(user: User) {
-    this.selectedUser = { ...user, password: '' }; // Clonar el usuario seleccionado y agregar la propiedad password
+    this.selectedUser = { ...user };
     this.isEditing = true;
   }
 
   saveUser() {
     if (this.selectedUser) {
-      const userToSend = { ...this.selectedUser };
-      if (!userToSend.password) {
-        delete userToSend.password; // Elimina la propiedad si está vacía
-      }
-
-      if (this.isEditing) {
-        this.userService.updateUser(userToSend.id!, userToSend).subscribe(() => {
-          this.getUsers(); // Refrescar la lista de usuarios
-          this.selectedUser = null; // Limpiar el usuario seleccionado
-        }, error => {
-          console.error('Error updating user:', error);
+      if (this.isEditing && this.selectedUser.id) {
+        this.userService.updateUser(this.selectedUser.id, this.selectedUser).subscribe(() => {
+          this.getUsers();
+          this.selectedUser = null;
         });
       } else {
-        this.userService.createUser(userToSend).subscribe(() => {
-          this.getUsers(); // Refrescar la lista de usuarios
-          this.selectedUser = null; // Limpiar el usuario seleccionado
-        }, error => {
-          console.error('Error creating user:', error);
+        this.userService.createUser(this.selectedUser).subscribe(() => {
+          this.getUsers();
+          this.selectedUser = null;
         });
       }
     }
@@ -65,20 +56,21 @@ export class UsersComponent implements OnInit {
   deleteUser(user: User) {
     if (confirm('Are you sure you want to delete this user?')) {
       this.userService.deleteUser(user.id!).subscribe(() => {
-        this.getUsers(); // Refrescar la lista de usuarios
-      }, error => {
-        console.error('Error deleting user:', error);
+        this.getUsers();
       });
     }
   }
-  goToAddress(userId: number) {
-    this.router.navigate(['../address', userId], { relativeTo: this.route });
+
+  viewUser(userId: number) {
+    this.router.navigate(['users', userId, 'view'], { relativeTo: this.route });
   }
-  goToPasswords(userId: number) {
-    this.router.navigate(['/seguridad/passwords', userId]);
-  }
+
   goToProfile(userId: number) {
     this.router.navigate(['/user-profile', userId]);
+  }
+
+  goToAddress(userId: number) {
+    this.router.navigate(['../address', userId], { relativeTo: this.route });
   }
 
   goToDigitalSignature(userId: number) {
@@ -89,13 +81,12 @@ export class UsersComponent implements OnInit {
     this.router.navigate(['/devices', userId]);
   }
 
-  goToSessions(userId: number) {
-    this.router.navigate(['/sessions', userId]);
+  goToPasswords(userId: number) {
+    this.router.navigate(['/seguridad/passwords', userId]);
   }
 
-  viewUser(userId: number) {
-    // Puedes navegar a un detalle o mostrar un modal
-    this.router.navigate(['/users', userId, 'view']);
+  goToSessions(userId: number) {
+    this.router.navigate(['/sessions', userId]);
   }
 }
 

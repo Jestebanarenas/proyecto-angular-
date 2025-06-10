@@ -13,10 +13,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
-import { DigitalSignatureComponent } from './pages/digitalsignature/digitalsignature.component';
-import { SecurityQuestionComponent } from './pages/securityquestion/securityquestion.component';
-import { AnswerComponent } from './pages/answer/answer.component';
-import { DeviceComponent } from './pages/device/device.component';
 
 
 @NgModule({
@@ -34,10 +30,6 @@ import { DeviceComponent } from './pages/device/device.component';
     AdminLayoutComponent,
     AuthLayoutComponent,
     UsersComponent,
-    DigitalSignatureComponent,
-    SecurityQuestionComponent,
-    AnswerComponent,
-    DeviceComponent,
 
   ],
   providers: [],
