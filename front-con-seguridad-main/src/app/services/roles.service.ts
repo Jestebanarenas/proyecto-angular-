@@ -1,9 +1,34 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Role } from '../models/role.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RolesService {
+  private apiUrl = `${environment.url_api_base}/roles`;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getRoles(): Observable<Role[]> {
+    return this.http.get<Role[]>(`${this.apiUrl}/`);
+  }
+
+  getRole(id: number): Observable<Role> {
+    return this.http.get<Role>(`${this.apiUrl}/${id}`);
+  }
+
+  createRole(role: Role): Observable<Role> {
+    return this.http.post<Role>(`${this.apiUrl}/`, role);
+  }
+
+  updateRole(id: number, role: Role): Observable<Role> {
+    return this.http.put<Role>(`${this.apiUrl}/${id}`, role);
+  }
+
+  deleteRole(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

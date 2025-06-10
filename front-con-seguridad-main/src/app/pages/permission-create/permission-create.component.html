@@ -1,19 +1,46 @@
 <div class="permission-create-container">
-  <h1>Permission Create</h1>
-  <form (ngSubmit)="createPermission()">
-    <label>
-      Url
-      <input type="text" [(ngModel)]="permission.url" name="url" required>
-    </label>
-    <label>
-      Method
-      <select [(ngModel)]="permission.method" name="method" required>
+  <h2>Create New Permission</h2>
+  
+  <form (ngSubmit)="savePermission()">
+    <div class="form-group">
+      <label for="url">URL:</label>
+      <input 
+        id="url" 
+        type="text" 
+        [(ngModel)]="permission.url" 
+        name="url" 
+        placeholder="/api/users"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="method">Method:</label>
+      <select id="method" [(ngModel)]="permission.method" name="method" required>
+        <option value="">Select Method</option>
         <option value="GET">GET</option>
         <option value="POST">POST</option>
         <option value="PUT">PUT</option>
         <option value="DELETE">DELETE</option>
+        <option value="PATCH">PATCH</option>
       </select>
-    </label>
-    <button type="submit">Create</button>
+    </div>
+
+    <div class="form-group">
+      <label for="entity">Entity:</label>
+      <input 
+        id="entity" 
+        type="text" 
+        [(ngModel)]="permission.entity" 
+        name="entity" 
+        placeholder="users"
+        required
+      />
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit">Create Permission</button>
+      <button type="button" (click)="cancel()">Cancel</button>
+    </div>
   </form>
 </div>

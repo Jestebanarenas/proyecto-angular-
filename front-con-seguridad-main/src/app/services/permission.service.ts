@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface Permission {
-  id: number;
+  id?: number;
   url: string;
   method: string;
   entity: string;
@@ -15,7 +16,7 @@ export interface Permission {
   providedIn: 'root'
 })
 export class PermissionService {
-  private apiUrl = 'http://localhost:5000/api/permissions'; // Ajusta la URL según tu backend
+  private apiUrl = `${environment.url_api_base}/permissions`;
 
   constructor(private http: HttpClient) { }
 
@@ -27,19 +28,15 @@ export class PermissionService {
     return this.http.get<Permission>(`${this.apiUrl}/${id}`);
   }
 
-  createPermission(permission: Partial<Permission>): Observable<Permission> {
-    return this.http.post<Permission>('http://localhost:5000/api/permissions/', permission);
+  createPermission(permission: Permission): Observable<Permission> {
+    return this.http.post<Permission>(`${this.apiUrl}/`, permission);
   }
 
-  updatePermission(id: number, permission: Partial<Permission>): Observable<Permission> {
+  updatePermission(id: number, permission: Permission): Observable<Permission> {
     return this.http.put<Permission>(`${this.apiUrl}/${id}`, permission);
   }
 
-  deletePermission(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
-  }
-
-  getPermissionsGroupedByRole(roleId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/grouped/role/${roleId}`);
+  deletePermission(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

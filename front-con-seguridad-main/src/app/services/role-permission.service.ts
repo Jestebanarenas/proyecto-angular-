@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface RolePermission {
   id?: string;
@@ -14,12 +15,12 @@ export interface RolePermission {
   providedIn: 'root'
 })
 export class RolePermissionService {
-  private apiUrl = 'http://localhost:5000/role-permission';
+  private apiUrl = `${environment.url_api_base}/role-permissions`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Obtener todas las relaciones
-  getAll(): Observable<RolePermission[]> {
+  getAllRolePermissions(): Observable<RolePermission[]> {
     return this.http.get<RolePermission[]>(`${this.apiUrl}/`);
   }
 
@@ -29,32 +30,27 @@ export class RolePermissionService {
   }
 
   // Obtener permisos por rol
-  getByRoleId(roleId: number): Observable<RolePermission[]> {
+  getRolePermissionsByRole(roleId: number): Observable<RolePermission[]> {
     return this.http.get<RolePermission[]>(`${this.apiUrl}/role/${roleId}`);
   }
 
   // Obtener roles por permiso
-  getByPermissionId(permissionId: number): Observable<RolePermission[]> {
+  getRolePermissionsByPermission(permissionId: number): Observable<RolePermission[]> {
     return this.http.get<RolePermission[]>(`${this.apiUrl}/permission/${permissionId}`);
   }
 
   // Crear una nueva relación rol-permiso
-  create(roleId: number, permissionId: number, data: any = {}): Observable<RolePermission> {
-    return this.http.post<RolePermission>(`${this.apiUrl}/role/${roleId}/permission/${permissionId}`, data);
-  }
-
-  // Actualizar una relación por ID
-  update(id: string, data: Partial<RolePermission>): Observable<RolePermission> {
-    return this.http.put<RolePermission>(`${this.apiUrl}/${id}`, data);
-  }
-
-  // Eliminar una relación por ID
-  deleteById(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  createRolePermission(roleId: number, permissionId: number): Observable<RolePermission> {
+    return this.http.post<RolePermission>(`${this.apiUrl}/role/${roleId}/permission/${permissionId}`, {});
   }
 
   // Eliminar una relación por role y permission
-  delete(roleId: number, permissionId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/role/${roleId}/permission/${permissionId}`);
+  deleteRolePermission(roleId: number, permissionId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/role/${roleId}/permission/${permissionId}`);
+  }
+
+  // Eliminar una relación por ID
+  deleteRolePermissionById(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

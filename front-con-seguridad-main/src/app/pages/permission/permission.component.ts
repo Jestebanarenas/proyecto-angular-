@@ -9,7 +9,7 @@ import { PermissionService, Permission } from '../../services/permission.service
 })
 export class PermissionComponent implements OnInit {
   permissions: Permission[] = [];
-  editingPermission: Permission | null = null; // <--- NUEVO
+  editingPermission: Permission | null = null;
 
   constructor(
     private permissionService: PermissionService,
@@ -33,48 +33,52 @@ export class PermissionComponent implements OnInit {
   }
 
   viewPermission(permission: Permission) {
-    // Lógica para ver detalles
-    alert(`View permission: ${permission.id}`);
+    alert(`Permission Details:\nID: ${permission.id}\nURL: ${permission.url}\nMethod: ${permission.method}\nEntity: ${permission.entity}`);
   }
 
   updatePermission(permission: Permission) {
-    // Mostrar el formulario de edición con los datos actuales
     this.editingPermission = { ...permission };
-  }
-
-  saveUpdate() {
-    if (this.editingPermission) {
-      this.permissionService.updatePermission(this.editingPermission.id, this.editingPermission).subscribe({
-        next: () => {
-          this.editingPermission = null;
-          this.loadPermissions();
-        },
-        error: (error) => {
-          console.error('Error updating permission:', error);
-        }
-      });
-    }
-  }
-
-  cancelEdit() {
-    this.editingPermission = null;
   }
 
   deletePermission(permission: Permission) {
     if (confirm('Are you sure you want to delete this permission?')) {
       this.permissionService.deletePermission(permission.id!).subscribe({
         next: () => {
-          this.loadPermissions(); // Recargar la lista después de eliminar
+          this.loadPermissions();
         },
         error: (error) => {
           console.error('Error deleting permission:', error);
+          alert('Error deleting permission. Please try again.');
         }
       });
     }
   }
 
   addPermission() {
-    // Navegar a la página de creación de permisos
     this.router.navigate(['create'], { relativeTo: this.route });
+  }
+
+  saveUpdate() {
+    if (!this.editingPermission) return;
+
+    if (!this.editingPermission.url?.trim() || !this.editingPermission.method?.trim()) {
+      alert('Please fill all required fields');
+      return;
+    }
+
+    this.permissionService.updatePermission(this.editingPermission.id!, this.editingPermission).subscribe({
+      next: () => {
+        this.loadPermissions();
+        this.editingPermission = null;
+      },
+      error: (error) => {
+        console.error('Error updating permission:', error);
+        alert('Error updating permission. Please try again.');
+      }
+    });
+  }
+
+  cancelEdit() {
+    this.editingPermission = null;
   }
 }
