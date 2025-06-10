@@ -1,64 +1,49 @@
 <div class="users-page">
   <h1>
-    Users
+    Usuarios 
     <button class="add-btn" (click)="openAddUser()">&#43;</button>
   </h1>
+
   <table>
     <thead>
       <tr>
         <th>ID</th>
-        <th>Name</th>
+        <th>Nombre</th>
         <th>Email</th>
-        <th>Options</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let user of users">
-        <td>{{user.id}}</td>
-        <td>{{user.name}}</td>
-        <td>{{user.email}}</td>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
         <td>
-          <button type="button" class="btn-link" (click)="openEditUser(user)">Update</button> |
-          <button type="button" class="btn-link" (click)="deleteUser(user)">Delete</button> |
-          <button type="button" class="btn-link" (click)="goToAddress(user.id)">Address</button> |
-          <button type="button" class="btn-link" (click)="goToPasswords(user.id)">Passwords</button> |
-          <button type="button" class="btn-link" (click)="goToProfile(user.id)">Profile</button> |
-          <button type="button" class="btn-link" (click)="goToRoles(user.id)">Roles</button>
-          <a (click)="viewUser(user.id)">View</a> |
-          <a (click)="openEditUser(user)">Update</a> |
-          <a (click)="deleteUser(user)">Delete</a> |
-          <a (click)="goToProfile(user.id)">Profile</a> |
-          <a (click)="goToAddress(user.id)">Address</a> |
-          <a (click)="goToDigitalSignature(user.id)">Digital Signature</a> |
-          <a (click)="goToDevices(user.id)">Devices</a> |
-          <a (click)="goToPasswords(user.id)">Passwords</a> |
-          <a (click)="goToSessions(user.id)">Sessions</a>
+          <button class="btn-link" (click)="editUser(user)">Editar</button> |
+          <button class="btn-link" (click)="deleteUser(user.id)">Eliminar</button> |
+          <button class="btn-link" (click)="goToAddress(user.id)">Dirección</button> |
+          <button class="btn-link" (click)="goToPasswords(user.id)">Contraseñas</button> |
+          <button class="btn-link" (click)="goToDigitalSignature(user.id)">Firma Digital</button> |
+          <button class="btn-link" (click)="goToDevices(user.id)">Dispositivos</button> |
+          <button class="btn-link" (click)="goToAnswers(user.id)">Respuestas</button>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <!-- Formulario para agregar/editar usuario -->
-  <div *ngIf="selectedUser" class="user-form">
-    <h2>{{ isEditing ? 'Edit User' : 'Add User' }}</h2>
-    <form (ngSubmit)="saveUser()">
-      <label>
-        Name:
-        <input [(ngModel)]="selectedUser.name" name="name" required />
-      </label>
-      <label>
-        Email:
-        <input [(ngModel)]="selectedUser.email" name="email" required />
-      </label>
-      <label *ngIf="!isEditing">
-        Password:
-        <input type="password" [(ngModel)]="selectedUser.password" name="password" required />
-      </label>
-      <button type="submit">{{ isEditing ? 'Update' : 'Create' }}</button>
-        <input [(ngModel)]="selectedUser.password" name="password" type="password" required />
-      </label>
-      <button type="submit">{{ isEditing ? 'Update' : 'Add' }}</button>
-      <button type="button" (click)="selectedUser = null">Cancel</button>
-    </form>
+  <div *ngIf="showForm" class="user-form">
+    <h2>{{ isEditing ? 'Editar' : 'Agregar' }} Usuario</h2>
+    
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" [(ngModel)]="selectedUser!.name" />
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" [(ngModel)]="selectedUser!.email" />
+    
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" [(ngModel)]="selectedUser!.password" />
+    
+    <button (click)="saveUser()">{{ isEditing ? 'Actualizar' : 'Crear' }}</button>
+    <button (click)="cancelForm()">Cancelar</button>
   </div>
 </div>

@@ -27,12 +27,9 @@ const routes: Routes = [
       { path: 'address/:id', component: AddressComponent },
       { path: 'passwords/:id', component: PasswordsComponent },
       { path: 'profile/:userId', component: ProfileComponent },
-      { path: 'user-role/:id', component: UserRoleComponent }
-      { path: 'address/:id', component: AddressComponent },
-      { path: 'passwords/:id', component: PasswordsComponent },
+      { path: 'user-role/:id', component: UserRoleComponent },
       { path: 'digital-signature/:id', component: DigitalSignatureComponent },
       { path: 'devices/:id', component: DeviceComponent }
-      // Removidas las rutas de answers y security-questions
     ]
   }
 ];

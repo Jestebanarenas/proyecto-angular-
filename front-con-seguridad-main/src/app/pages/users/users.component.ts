@@ -13,43 +13,52 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   selectedUser: User | null = null;
   isEditing: boolean = false;
+  showForm = false;
+  editingUser: User | null = null;
+  newUser: User = { id: 0, name: '', email: '', password: '' };
 
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
     private router: Router,
     private route: ActivatedRoute
-  showForm = false;
-  editingUser: User | null = null;
-  selectedUser: User | null = null; // Agregar esta propiedad
-  newUser: User = { id: 0, name: '', email: '', password: '' };
-
-  constructor(
-    private userService: UserService,
-    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.getUsers();
   }
 
-  loadUsers(): void {
+  getUsers(): void {
     this.userService.getUsers().subscribe(users => {
       this.users = users;
     });
   }
 
-  openAddUser() {
+  loadUsers(): void {
+    this.getUsers();
+  }
+
+  openAddUser(): void {
     this.selectedUser = { id: null, name: '', email: '', password: '' };
     this.isEditing = false;
+    this.showForm = true;
+    this.editingUser = null;
+    this.newUser = { id: 0, name: '', email: '', password: '' };
   }
 
-  openEditUser(user: User) {
+  openEditUser(user: User): void {
     this.selectedUser = { ...user, password: '' };
     this.isEditing = true;
+    this.showForm = true;
+    this.editingUser = user;
+    this.newUser = { ...user };
   }
 
-  saveUser() {
+  editUser(user: User): void {
+    this.openEditUser(user);
+  }
+
+  saveUser(): void {
     if (this.selectedUser) {
       const userToSend = { ...this.selectedUser };
       if (!userToSend.password) {
@@ -59,7 +68,7 @@ export class UsersComponent implements OnInit {
       if (this.isEditing) {
         this.userService.updateUser(userToSend.id!, userToSend).subscribe(() => {
           this.getUsers();
-          this.selectedUser = null;
+          this.cancelForm();
         }, error => {
           console.error('Error updating user:', error);
         });
@@ -72,15 +81,28 @@ export class UsersComponent implements OnInit {
           this.createDefaultProfile(newUser.id);
           
           this.getUsers();
-          this.selectedUser = null;
+          this.cancelForm();
         }, error => {
           console.error('Error creating user:', error);
         });
       }
     }
+
+    // Método alternativo usando newUser
+    if (this.editingUser && !this.selectedUser) {
+      this.userService.updateUser(this.editingUser.id, this.newUser).subscribe(() => {
+        this.loadUsers();
+        this.cancelForm();
+      });
+    } else if (!this.editingUser && !this.selectedUser) {
+      this.userService.createUser(this.newUser).subscribe(() => {
+        this.loadUsers();
+        this.cancelForm();
+      });
+    }
   }
 
-  private createDefaultProfile(userId: number) {
+  private createDefaultProfile(userId: number): void {
     // Crear un perfil vacío por defecto
     const defaultProfileData = { phone: '' };
     
@@ -95,17 +117,26 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  deleteUser(user: User) {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(user.id!).subscribe(() => {
+  deleteUser(user: User): void;
+  deleteUser(id: number): void;
+  deleteUser(userOrId: User | number): void {
+    const userId = typeof userOrId === 'number' ? userOrId : userOrId.id!;
+    const message = '¿Estás seguro de que quieres eliminar este usuario?';
+    
+    if (confirm(message)) {
+      this.userService.deleteUser(userId).subscribe(() => {
         this.getUsers();
       }, error => {
         console.error('Error deleting user:', error);
-  // Agregar método openAddUser
-  openAddUser(): void {
-    this.showForm = true;
+      });
+    }
+  }
+
+  cancelForm(): void {
+    this.showForm = false;
     this.editingUser = null;
     this.selectedUser = null;
+    this.isEditing = false;
     this.newUser = { id: 0, name: '', email: '', password: '' };
   }
 
@@ -129,70 +160,29 @@ export class UsersComponent implements OnInit {
     this.router.navigate(['/seguridad/devices', userId]);
   }
 
-  // Método para seleccionar usuario
-  selectUser(user: User): void {
-    this.selectedUser = user;
-    this.showForm = true;
-    this.editingUser = user;
-    this.newUser = { ...user };
+  // Navegación a respuestas de seguridad
+  goToAnswers(userId: number): void {
+    this.router.navigate(['/answers', userId]);
   }
 
-  // Resto de métodos para CRUD de usuarios
-  addUser(): void {
-    this.showForm = true;
-    this.editingUser = null;
-    this.selectedUser = null;
-    this.newUser = { id: 0, name: '', email: '', password: '' };
-  }
-
-  editUser(user: User): void {
-    this.showForm = true;
-    this.editingUser = user;
-    this.selectedUser = user;
-    this.newUser = { ...user };
-  }
-
-  saveUser(): void {
-    if (this.editingUser) {
-      this.userService.updateUser(this.editingUser.id, this.newUser).subscribe(() => {
-        this.loadUsers();
-        this.cancelForm();
-      });
-    } else {
-      this.userService.createUser(this.newUser).subscribe(() => {
-        this.loadUsers();
-        this.cancelForm();
-      });
-    }
-  }
-
-  goToAddress(userId: number) {
-    this.router.navigate(['../address', userId], { relativeTo: this.route });
-  }
-
-  goToRoles(userId: number) {
+  // Navegación a roles
+  goToRoles(userId: number): void {
     this.router.navigate(['/seguridad/user-role', userId]);
   }
 
-  goToPasswords(userId: number) {
-    this.router.navigate(['/seguridad/passwords', userId]);
-  deleteUser(id: number): void {
-    if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-      this.userService.deleteUser(id).subscribe(() => {
-        this.loadUsers();
-      });
-    }
+  // Navegación a perfil
+  goToProfile(userId: number): void {
+    this.router.navigate(['/seguridad/profile', userId]);
   }
 
-  cancelForm(): void {
-    this.showForm = false;
-    this.editingUser = null;
-    this.selectedUser = null;
-    this.newUser = { id: 0, name: '', email: '', password: '' };
+  // Método para seleccionar usuario
+  selectUser(user: User): void {
+    this.openEditUser(user);
   }
 
-  goToProfile(userId: number) {
-    this.router.navigate(['../profile', userId], { relativeTo: this.route });
+  // Método adicional para agregar usuario
+  addUser(): void {
+    this.openAddUser();
   }
 }
 
