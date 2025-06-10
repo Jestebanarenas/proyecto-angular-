@@ -33,12 +33,8 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'seguridad',
-    loadChildren: () => import('./pages/seguridad/seguridad.module').then(m => m.SeguridadModule)
-  },
-  {
     path: '**',
-    redirectTo: 'seguridad/users',
+    redirectTo: 'dashboard',
   }
 ];
 

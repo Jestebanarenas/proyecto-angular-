@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -10,83 +10,104 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
   users: User[] = [];
-  selectedUser: User | null = null;
-  isEditing: boolean = false;
+  showForm = false;
+  editingUser: User | null = null;
+  selectedUser: User | null = null; // Agregar esta propiedad
+  newUser: User = { id: 0, name: '', email: '', password: '' };
 
   constructor(
     private userService: UserService,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {}
 
-  ngOnInit() {
-    this.getUsers();
+  ngOnInit(): void {
+    this.loadUsers();
   }
 
-  getUsers() {
-    this.userService.getUsers().subscribe(users => this.users = users);
+  loadUsers(): void {
+    this.userService.getUsers().subscribe(users => {
+      this.users = users;
+    });
   }
 
-  openAddUser() {
-    this.selectedUser = { email: '', name: '', password: '' };
-    this.isEditing = false;
+  // Agregar método openAddUser
+  openAddUser(): void {
+    this.showForm = true;
+    this.editingUser = null;
+    this.selectedUser = null;
+    this.newUser = { id: 0, name: '', email: '', password: '' };
   }
 
-  openEditUser(user: User) {
-    this.selectedUser = { ...user };
-    this.isEditing = true;
+  // Navegación a direcciones
+  goToAddress(userId: number): void {
+    this.router.navigate(['/seguridad/address', userId]);
   }
 
-  saveUser() {
-    if (this.selectedUser) {
-      if (this.isEditing && this.selectedUser.id) {
-        this.userService.updateUser(this.selectedUser.id, this.selectedUser).subscribe(() => {
-          this.getUsers();
-          this.selectedUser = null;
-        });
-      } else {
-        this.userService.createUser(this.selectedUser).subscribe(() => {
-          this.getUsers();
-          this.selectedUser = null;
-        });
-      }
-    }
+  // Navegación a contraseñas
+  goToPasswords(userId: number): void {
+    this.router.navigate(['/seguridad/passwords', userId]);
   }
 
-  deleteUser(user: User) {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(user.id!).subscribe(() => {
-        this.getUsers();
+  // Navegación a firma digital
+  goToDigitalSignature(userId: number): void {
+    this.router.navigate(['/seguridad/digital-signature', userId]);
+  }
+
+  // Navegación a dispositivos
+  goToDevices(userId: number): void {
+    this.router.navigate(['/seguridad/devices', userId]);
+  }
+
+  // Método para seleccionar usuario
+  selectUser(user: User): void {
+    this.selectedUser = user;
+    this.showForm = true;
+    this.editingUser = user;
+    this.newUser = { ...user };
+  }
+
+  // Resto de métodos para CRUD de usuarios
+  addUser(): void {
+    this.showForm = true;
+    this.editingUser = null;
+    this.selectedUser = null;
+    this.newUser = { id: 0, name: '', email: '', password: '' };
+  }
+
+  editUser(user: User): void {
+    this.showForm = true;
+    this.editingUser = user;
+    this.selectedUser = user;
+    this.newUser = { ...user };
+  }
+
+  saveUser(): void {
+    if (this.editingUser) {
+      this.userService.updateUser(this.editingUser.id, this.newUser).subscribe(() => {
+        this.loadUsers();
+        this.cancelForm();
+      });
+    } else {
+      this.userService.createUser(this.newUser).subscribe(() => {
+        this.loadUsers();
+        this.cancelForm();
       });
     }
   }
 
-  viewUser(userId: number) {
-    this.router.navigate(['users', userId, 'view'], { relativeTo: this.route });
+  deleteUser(id: number): void {
+    if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+      this.userService.deleteUser(id).subscribe(() => {
+        this.loadUsers();
+      });
+    }
   }
 
-  goToProfile(userId: number) {
-    this.router.navigate(['/user-profile', userId]);
-  }
-
-  goToAddress(userId: number) {
-    this.router.navigate(['../address', userId], { relativeTo: this.route });
-  }
-
-  goToDigitalSignature(userId: number) {
-    this.router.navigate(['/digital-signature', userId]);
-  }
-
-  goToDevices(userId: number) {
-    this.router.navigate(['/devices', userId]);
-  }
-
-  goToPasswords(userId: number) {
-    this.router.navigate(['/seguridad/passwords', userId]);
-  }
-
-  goToSessions(userId: number) {
-    this.router.navigate(['/sessions', userId]);
+  cancelForm(): void {
+    this.showForm = false;
+    this.editingUser = null;
+    this.selectedUser = null;
+    this.newUser = { id: 0, name: '', email: '', password: '' };
   }
 }
 

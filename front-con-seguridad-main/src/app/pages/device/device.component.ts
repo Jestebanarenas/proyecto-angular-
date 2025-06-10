@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Device } from 'src/app/models/device.model';
 import { DeviceService } from 'src/app/services/device.service';
 
@@ -10,12 +11,21 @@ import { DeviceService } from 'src/app/services/device.service';
 export class DeviceComponent implements OnInit {
   devices: Device[] = [];
   newDevice: { name: string; ip: string; operating_system: string } = { name: '', ip: '', operating_system: '' };
-  user_id: number = 1; // Ajustar a contexto real
+  user_id: number = 1;
 
-  constructor(private deviceService: DeviceService) {}
+  constructor(
+    private deviceService: DeviceService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.loadDevices();
+    // Obtener el userId de la ruta
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.user_id = +params['id'];
+      }
+      this.loadDevices();
+    });
   }
 
   loadDevices(): void {

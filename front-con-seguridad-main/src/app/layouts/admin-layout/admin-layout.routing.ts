@@ -5,11 +5,8 @@ import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
-import { DigitalSignatureComponent } from '../../pages/digitalsignature/digitalsignature.component';
-import { SecurityQuestionComponent } from '../../pages/securityquestion/securityquestion.component';
 import { AnswerComponent } from '../../pages/answer/answer.component';
-import { DeviceComponent } from 'src/app/pages/device/device.component';
-
+import { SecurityQuestionComponent } from '../../pages/securityquestion/securityquestion.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -19,17 +16,12 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps', component: MapsComponent },
     {
         path: 'theaters',
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('src/app/pages/theaters/theaters.module').then(m => m.TheatersModule)
-            }
-        ]
+        loadChildren: () => import('src/app/pages/theaters/theaters.module').then(m => m.TheatersModule)
     },
-    { path: 'seguridad', loadChildren: () => import('../../pages/seguridad/seguridad.module').then(m => m.SeguridadModule) },
-    { path: 'digital-signature', component: DigitalSignatureComponent },
+    { path: 'answers/:id', component: AnswerComponent },
     { path: 'security-questions', component: SecurityQuestionComponent },
-    { path: 'answers', component: AnswerComponent },
-    {path: 'devices', component: DeviceComponent}
-
+    { 
+        path: 'seguridad', 
+        loadChildren: () => import('../../pages/seguridad/seguridad.module').then(m => m.SeguridadModule) 
+    }
 ];
