@@ -2,5 +2,8 @@
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@vitejs/plugin-react": "^4.5.1"
+  },
+  "dependencies": {
+    "@abacritt/angularx-social-login": "^2.4.0"
   }
 }
