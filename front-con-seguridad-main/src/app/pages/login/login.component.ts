@@ -94,7 +94,20 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     try {
       // Decodificar el JWT token para obtener la información del usuario
       const payload = JSON.parse(atob(response.credential.split('.')[1]));
-      console.log('Google payload:', payload);
+      
+      // Mostrar información detallada en consola
+      console.log('=== GOOGLE LOGIN SUCCESS ===');
+      console.log('Token completo:', response.credential);
+      console.log('Header del token:', JSON.parse(atob(response.credential.split('.')[0])));
+      console.log('Payload del token:', payload);
+      console.log('Usuario Google:', {
+        id: payload.sub,
+        name: payload.name,
+        email: payload.email,
+        picture: payload.picture
+      });
+      console.log('=============================');
+      console.log('EMAIL PARA AGREGAR A ADMIN:', payload.email);
       
       const googleUserSession = {
         user: {

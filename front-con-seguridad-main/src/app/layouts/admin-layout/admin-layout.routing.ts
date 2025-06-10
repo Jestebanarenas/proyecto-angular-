@@ -7,21 +7,53 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { AnswerComponent } from '../../pages/answer/answer.component';
 import { SecurityQuestionComponent } from '../../pages/securityquestion/securityquestion.component';
+import { AuthGuard } from '../../guards/auth.guard';
+import { AdminGuard } from '../../guards/admin.guard';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'user-profile', component: UserProfileComponent },
-    { path: 'tables', component: TablesComponent },
-    { path: 'icons', component: IconsComponent },
-    { path: 'maps', component: MapsComponent },
+    { 
+        path: 'dashboard', 
+        component: DashboardComponent,
+        canActivate: [AuthGuard] // Solo usuarios autenticados
+    },
+    { 
+        path: 'user-profile', 
+        component: UserProfileComponent,
+        canActivate: [AuthGuard] // Solo usuarios autenticados
+    },
+    { 
+        path: 'tables', 
+        component: TablesComponent,
+        canActivate: [AuthGuard] // Solo usuarios autenticados
+    },
+    { 
+        path: 'icons', 
+        component: IconsComponent,
+        canActivate: [AuthGuard] // Solo usuarios autenticados
+    },
+    { 
+        path: 'maps', 
+        component: MapsComponent,
+        canActivate: [AuthGuard] // Solo usuarios autenticados
+    },
     {
         path: 'theaters',
-        loadChildren: () => import('src/app/pages/theaters/theaters.module').then(m => m.TheatersModule)
+        loadChildren: () => import('src/app/pages/theaters/theaters.module').then(m => m.TheatersModule),
+        canActivate: [AuthGuard] // Solo usuarios autenticados
     },
-    { path: 'answers/:id', component: AnswerComponent },
-    { path: 'security-questions', component: SecurityQuestionComponent },
+    { 
+        path: 'answers/:id', 
+        component: AnswerComponent,
+        canActivate: [AuthGuard] // Solo usuarios autenticados - PROTEGIDO
+    },
+    { 
+        path: 'security-questions', 
+        component: SecurityQuestionComponent,
+        canActivate: [AuthGuard] // Solo usuarios autenticados - PROTEGIDO
+    },
     { 
         path: 'seguridad', 
-        loadChildren: () => import('../../pages/seguridad/seguridad.module').then(m => m.SeguridadModule) 
+        loadChildren: () => import('../../pages/seguridad/seguridad.module').then(m => m.SeguridadModule),
+        canActivate: [AuthGuard, AdminGuard] // Solo usuarios autenticados Y administradores
     }
 ];
