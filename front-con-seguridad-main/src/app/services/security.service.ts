@@ -39,6 +39,15 @@ export class SecurityService {
     localStorage.setItem('sesion', JSON.stringify(data));
     this.setUser(data);
   }
+
+  /**
+  * Login con Google usando el idToken recibido del frontend
+  */
+  loginWithGoogle(idToken: string): Observable<any> {
+    // Cambia la URL por la de tu backend para login con Google
+    return this.http.post<any>(`${environment.url_ms_security}/auth/google`, { idToken });
+  }
+
   /**
     * Permite actualizar la información del usuario
     * que acabó de validarse correctamente
