@@ -175,6 +175,11 @@ export class UsersComponent implements OnInit {
     this.router.navigate(['/seguridad/profile', userId]);
   }
 
+  // Navegación a sesiones
+  goToSessions(userId: number) {
+    this.router.navigate(['/seguridad/sessions', userId]);
+  }
+
   // Método para seleccionar usuario
   selectUser(user: User): void {
     this.openEditUser(user);

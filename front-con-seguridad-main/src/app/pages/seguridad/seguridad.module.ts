@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { SeguridadComponent } from './seguridad.component';
 import { SeguridadRoutingModule } from './seguridad-routing.module';
 import { UsersComponent } from '../users/users.component';
@@ -19,6 +19,7 @@ import { SecurityService } from 'src/app/services/security.service';
 import { SecurityQuestionService } from 'src/app/services/securityquestion.service';
 import { UserAnswerService } from 'src/app/services/answer.service';
 import { UserService } from 'src/app/services/user.service';
+import { SessionComponent } from '../sessions/sessions.component';
 
 
 @NgModule({
@@ -35,17 +36,19 @@ import { UserService } from 'src/app/services/user.service';
     UserRoleComponent,
     DigitalSignatureComponent,
     DeviceComponent,
-    RouterModule,
+    SessionComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild([]),
+    FormsModule,
+    SeguridadRoutingModule
+  ],
+  providers: [
     SecurityService,
     SecurityQuestionService,
     UserAnswerService,
     UserService
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    SeguridadRoutingModule
   ]
 })
 export class SeguridadModule { }

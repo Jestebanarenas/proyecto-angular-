@@ -7,8 +7,7 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>User</th>
-        <th>Device</th>
+        <th>FA Code</th>
         <th>Start Time</th>
         <th>Status</th>
         <th>Actions</th>
@@ -17,14 +16,18 @@
     <tbody>
       <tr *ngFor="let session of sessions">
         <td>{{ session.id }}</td>
-        <td>{{ session.user.username }}</td>
-        <td>{{ session.device }}</td>
-        <td>{{ session.startTime | date: 'short' }}</td>
-        <td>{{ session.status }}</td>
+        <td>{{ session.FACode || 'N/A' }}</td>
+        <td>{{ session.created_at | date: 'short' }}</td>
+        <td>{{ session.state || 'Unknown' }}</td>
         <td>
-          <button *ngIf="session.status === 'active'" (click)="endSession(session.id)" class="btn btn-danger btn-sm">End Session</button>
+          <button *ngIf="session.state === 'active'" (click)="endSession(session.id)" class="btn btn-danger btn-sm">End Session</button>
         </td>
       </tr>
     </tbody>
   </table>
+
+  <!-- Mensaje cuando no hay sesiones -->
+  <div *ngIf="sessions.length === 0" class="alert alert-info mt-3">
+    No sessions found for this user.
+  </div>
 </div>

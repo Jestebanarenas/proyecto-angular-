@@ -12,6 +12,7 @@ import { RolePermissionComponent } from '../role-permission/role-permission.comp
 import { UserRoleComponent } from '../user-role/user-role.component';
 import { DigitalSignatureComponent } from '../digitalsignature/digitalsignature.component';
 import { DeviceComponent } from '../device/device.component';
+import { SessionComponent } from '../sessions/sessions.component';
 
 const routes: Routes = [
   {
@@ -29,7 +30,8 @@ const routes: Routes = [
       { path: 'profile/:userId', component: ProfileComponent },
       { path: 'user-role/:id', component: UserRoleComponent },
       { path: 'digital-signature/:id', component: DigitalSignatureComponent },
-      { path: 'devices/:id', component: DeviceComponent }
+      { path: 'devices/:id', component: DeviceComponent },
+      { path: 'sessions/:id', component: SessionComponent }
     ]
   }
 ];

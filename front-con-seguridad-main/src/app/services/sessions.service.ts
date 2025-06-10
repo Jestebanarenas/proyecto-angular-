@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SessionService {
-  private apiUrl = `${environment.apiUrl}/sessions`;  // Ruta para las sesiones en el backend
+  private apiUrl = `${environment.apiUrl}/sessions`;
 
   constructor(private http: HttpClient) {}
 
@@ -18,17 +18,18 @@ export class SessionService {
   }
 
   // Crear una nueva sesión
-  createSession(session: Sessions): Observable<Sessions> {
-    return this.http.post<Sessions>(this.apiUrl, session);
+  createSession(userId: number, session: Sessions): Observable<Sessions> {
+    return this.http.post<Sessions>(`${this.apiUrl}/user/${userId}`, session);
   }
 
-  // Terminar una sesión
-  endSession(sessionId: number): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${sessionId}/end`, {});
+  // Terminar una sesión - usar PUT directo al ID de la sesión
+  endSession(sessionId: string): Observable<Sessions> {
+    const updateData = { state: 'inactive' };
+    return this.http.put<Sessions>(`${this.apiUrl}/${sessionId}`, updateData);
   }
 
   // Eliminar una sesión (por ejemplo, logout forzado)
-  deleteSession(sessionId: number): Observable<void> {
+  deleteSession(sessionId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${sessionId}`);
   }
 }
