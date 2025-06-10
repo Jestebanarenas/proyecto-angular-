@@ -28,33 +28,56 @@ export class AnswerComponent implements OnInit {
   }
 
   loadQuestions(): void {
-    this.questionService.getAll().subscribe((data) => {
-      this.questions = data;
+    this.questionService.getAll().subscribe({
+      next: (data) => {
+        this.questions = data;
+      },
+      error: (error) => {
+        console.error('Error loading questions:', error);
+      }
     });
   }
 
   loadUserAnswers(): void {
-    this.userAnswerService.getByUserId(this.userId).subscribe((data) => {
-      this.userAnswers = data;
+    this.userAnswerService.getByUserId(this.userId).subscribe({
+      next: (data) => {
+        this.userAnswers = data;
+      },
+      error: (error) => {
+        console.error('Error loading user answers:', error);
+      }
     });
   }
 
   saveAnswer(): void {
-    if (!this.selectedQuestionId || !this.answerText.trim()) return;
+    if (!this.selectedQuestionId || !this.answerText.trim()) {
+      alert('Por favor selecciona una pregunta y escribe una respuesta');
+      return;
+    }
 
     if (this.editingAnswer) {
       // Update
       this.userAnswerService.update(this.editingAnswer.id, this.answerText)
-        .subscribe(() => {
-          this.resetForm();
-          this.loadUserAnswers();
+        .subscribe({
+          next: () => {
+            this.resetForm();
+            this.loadUserAnswers();
+          },
+          error: (error) => {
+            console.error('Error updating answer:', error);
+          }
         });
     } else {
       // Create
       this.userAnswerService.create(this.userId, this.selectedQuestionId, this.answerText)
-        .subscribe(() => {
-          this.resetForm();
-          this.loadUserAnswers();
+        .subscribe({
+          next: () => {
+            this.resetForm();
+            this.loadUserAnswers();
+          },
+          error: (error) => {
+            console.error('Error creating answer:', error);
+          }
         });
     }
   }
@@ -67,8 +90,13 @@ export class AnswerComponent implements OnInit {
 
   deleteAnswer(answer: UserAnswer): void {
     if (confirm('¿Seguro que deseas eliminar esta respuesta?')) {
-      this.userAnswerService.delete(answer.id).subscribe(() => {
-        this.loadUserAnswers();
+      this.userAnswerService.delete(answer.id).subscribe({
+        next: () => {
+          this.loadUserAnswers();
+        },
+        error: (error) => {
+          console.error('Error deleting answer:', error);
+        }
       });
     }
   }

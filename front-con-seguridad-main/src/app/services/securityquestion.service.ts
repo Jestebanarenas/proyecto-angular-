@@ -8,7 +8,7 @@ import { SecurityQuestion } from '../models/securityquestion.model';
   providedIn: 'root'
 })
 export class SecurityQuestionService {
-  private apiUrl = `${environment.apiUrl}/security-question`;
+  private apiUrl = `${environment.apiUrl}/security-questions`;
 
   constructor(private http: HttpClient) {}
 
