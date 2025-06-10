@@ -6,6 +6,8 @@ import { RolesComponent } from '../roles/roles.component';
 import { AddressComponent } from '../address/address.component';
 import { PasswordsComponent } from '../passwords/passwords.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { PermissionComponent } from '../permission/permission.component';
+import { PermissionCreateComponent } from '../permission-create/permission-create.component';
 
 const routes: Routes = [
   {
@@ -15,10 +17,11 @@ const routes: Routes = [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },
       { path: 'roles', component: RolesComponent },
-      { path: 'address/:id', component: AddressComponent },  // <-- Cambia aquí
+      { path: 'permissions', component: PermissionComponent },
+      { path: 'permissions/create', component: PermissionCreateComponent },
+      { path: 'address/:id', component: AddressComponent },
       { path: 'passwords/:id', component: PasswordsComponent },
       { path: 'profile/:userId', component: ProfileComponent },
-      // { path: 'permissions', component: PermissionsComponent },
     ]
   }
 ];

@@ -1,0 +1,28 @@
+<div class="permissions-container">
+  <h1>
+    Permissions
+    <button class="add-btn" (click)="addPermission()">&#43;</button>
+  </h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Url</th>
+        <th>Method</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let permission of permissions">
+        <td>{{ permission.id }}</td>
+        <td>{{ permission.url }}</td>
+        <td>{{ permission.method }}</td>
+        <td>
+          <a href="#" (click)="viewPermission(permission); $event.preventDefault()">View</a> |
+          <a href="#" (click)="updatePermission(permission); $event.preventDefault()">Update</a> |
+          <a href="#" (click)="deletePermission(permission); $event.preventDefault()">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

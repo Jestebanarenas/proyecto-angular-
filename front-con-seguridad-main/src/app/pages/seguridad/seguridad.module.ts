@@ -7,6 +7,7 @@ import { RolesComponent } from '../roles/roles.component';
 import { AddressComponent } from '../address/address.component';
 import { PasswordsComponent } from '../passwords/passwords.component';
 import { ProfileComponent } from '../profile/profile.component'; // <-- Importa el componente Profile
+import { PermissionComponent } from '../permission/permission.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ProfileComponent } from '../profile/profile.component'; // <-- Importa 
     RolesComponent,
     AddressComponent,
     PasswordsComponent,
-    ProfileComponent // <-- Declara el componente Profile
+    ProfileComponent,
+    PermissionComponent // <-- Agrega aquí
   ],
   imports: [
     CommonModule,

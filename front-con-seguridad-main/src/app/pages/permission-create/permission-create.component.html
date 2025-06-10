@@ -1,0 +1,19 @@
+<div class="permission-create-container">
+  <h1>Permission Create</h1>
+  <form (ngSubmit)="createPermission()">
+    <label>
+      Url
+      <input type="text" [(ngModel)]="permission.url" name="url" required>
+    </label>
+    <label>
+      Method
+      <select [(ngModel)]="permission.method" name="method" required>
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+      </select>
+    </label>
+    <button type="submit">Create</button>
+  </form>
+</div>
