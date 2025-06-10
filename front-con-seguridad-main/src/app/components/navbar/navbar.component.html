@@ -10,7 +10,8 @@
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
           </div>
-          <input class="form-control" placeholder="Search" type="text" (focus)="focus = true" (blur)="focus = false">
+          <input class="form-control" placeholder="Search" type="text" (focus)="focus=true"
+            (blur)="focus=false">
         </div>
       </div>
     </form>
@@ -20,11 +21,13 @@
         <a class="nav-link pr-0" role="button" ngbDropdownToggle>
           <div class="media align-items-center">
             <span class="avatar avatar-sm rounded-circle">
-              <img alt="Image placeholder" [src]="socialUser?.photoUrl || 'assets/img/theme/team-4-800x800.jpg'">
+              <!-- Remover socialUser y usar solo user -->
+              <img alt="Image placeholder" [src]="'assets/img/theme/team-4-800x800.jpg'">
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
               <span class="mb-0 text-sm  font-weight-bold">
-                {{socialUser?.name || user?.name || ""}}
+                <!-- Remover socialUser y usar solo user -->
+                {{user?.name || "Usuario"}}
               </span>
             </div>
           </div>
@@ -50,7 +53,7 @@
             <span>Support</span>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#!" class="dropdown-item" (click)="logout()">
+          <a class="dropdown-item" (click)="logout()">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
           </a>
