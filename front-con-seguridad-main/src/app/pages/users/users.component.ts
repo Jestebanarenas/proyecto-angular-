@@ -77,6 +77,26 @@ export class UsersComponent implements OnInit {
   goToPasswords(userId: number) {
     this.router.navigate(['/seguridad/passwords', userId]);
   }
+  goToProfile(userId: number) {
+    this.router.navigate(['/user-profile', userId]);
+  }
+
+  goToDigitalSignature(userId: number) {
+    this.router.navigate(['/digital-signature', userId]);
+  }
+
+  goToDevices(userId: number) {
+    this.router.navigate(['/devices', userId]);
+  }
+
+  goToSessions(userId: number) {
+    this.router.navigate(['/sessions', userId]);
+  }
+
+  viewUser(userId: number) {
+    // Puedes navegar a un detalle o mostrar un modal
+    this.router.navigate(['/users', userId, 'view']);
+  }
 }
 
 

@@ -18,10 +18,15 @@
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
         <td>
+          <button type="button" class="btn-link" (click)="viewUser(user.id)">View</button> |
           <button type="button" class="btn-link" (click)="openEditUser(user)">Update</button> |
           <button type="button" class="btn-link" (click)="deleteUser(user)">Delete</button> |
+          <button type="button" class="btn-link" (click)="goToProfile(user.id)">Profile</button> |
           <button type="button" class="btn-link" (click)="goToAddress(user.id)">Address</button> |
-          <button type="button" class="btn-link" (click)="goToPasswords(user.id)">Passwords</button>
+          <button type="button" class="btn-link" (click)="goToDigitalSignature(user.id)">Digital Signature</button> |
+          <button type="button" class="btn-link" (click)="goToDevices(user.id)">Devices</button> |
+          <button type="button" class="btn-link" (click)="goToPasswords(user.id)">Passwords</button> |
+          <button type="button" class="btn-link" (click)="goToSessions(user.id)">Sessions</button>
         </td>
       </tr>
     </tbody>
