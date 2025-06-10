@@ -10,6 +10,8 @@ import { PermissionComponent } from '../permission/permission.component';
 import { PermissionCreateComponent } from '../permission-create/permission-create.component';
 import { RolePermissionComponent } from '../role-permission/role-permission.component';
 import { UserRoleComponent } from '../user-role/user-role.component';
+import { DigitalSignatureComponent } from '../digitalsignature/digitalsignature.component';
+import { DeviceComponent } from '../device/device.component';
 
 const routes: Routes = [
   {
@@ -26,6 +28,11 @@ const routes: Routes = [
       { path: 'passwords/:id', component: PasswordsComponent },
       { path: 'profile/:userId', component: ProfileComponent },
       { path: 'user-role/:id', component: UserRoleComponent }
+      { path: 'address/:id', component: AddressComponent },
+      { path: 'passwords/:id', component: PasswordsComponent },
+      { path: 'digital-signature/:id', component: DigitalSignatureComponent },
+      { path: 'devices/:id', component: DeviceComponent }
+      // Removidas las rutas de answers y security-questions
     ]
   }
 ];

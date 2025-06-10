@@ -17,7 +17,7 @@ import { UserRoleComponent } from './pages/user-role/user-role.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
-    FormsModule,
+    FormsModule, // Asegúrate de que esté aquí
     HttpClientModule,
     ComponentsModule,
     NgbModule,

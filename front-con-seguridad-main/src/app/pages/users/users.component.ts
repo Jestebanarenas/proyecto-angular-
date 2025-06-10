@@ -19,14 +19,24 @@ export class UsersComponent implements OnInit {
     private profileService: ProfileService,
     private router: Router,
     private route: ActivatedRoute
+  showForm = false;
+  editingUser: User | null = null;
+  selectedUser: User | null = null; // Agregar esta propiedad
+  newUser: User = { id: 0, name: '', email: '', password: '' };
+
+  constructor(
+    private userService: UserService,
+    private router: Router
   ) {}
 
-  ngOnInit() {
-    this.getUsers();
+  ngOnInit(): void {
+    this.loadUsers();
   }
 
-  getUsers() {
-    this.userService.getUsers().subscribe(users => this.users = users);
+  loadUsers(): void {
+    this.userService.getUsers().subscribe(users => {
+      this.users = users;
+    });
   }
 
   openAddUser() {
@@ -91,6 +101,67 @@ export class UsersComponent implements OnInit {
         this.getUsers();
       }, error => {
         console.error('Error deleting user:', error);
+  // Agregar método openAddUser
+  openAddUser(): void {
+    this.showForm = true;
+    this.editingUser = null;
+    this.selectedUser = null;
+    this.newUser = { id: 0, name: '', email: '', password: '' };
+  }
+
+  // Navegación a direcciones
+  goToAddress(userId: number): void {
+    this.router.navigate(['/seguridad/address', userId]);
+  }
+
+  // Navegación a contraseñas
+  goToPasswords(userId: number): void {
+    this.router.navigate(['/seguridad/passwords', userId]);
+  }
+
+  // Navegación a firma digital
+  goToDigitalSignature(userId: number): void {
+    this.router.navigate(['/seguridad/digital-signature', userId]);
+  }
+
+  // Navegación a dispositivos
+  goToDevices(userId: number): void {
+    this.router.navigate(['/seguridad/devices', userId]);
+  }
+
+  // Método para seleccionar usuario
+  selectUser(user: User): void {
+    this.selectedUser = user;
+    this.showForm = true;
+    this.editingUser = user;
+    this.newUser = { ...user };
+  }
+
+  // Resto de métodos para CRUD de usuarios
+  addUser(): void {
+    this.showForm = true;
+    this.editingUser = null;
+    this.selectedUser = null;
+    this.newUser = { id: 0, name: '', email: '', password: '' };
+  }
+
+  editUser(user: User): void {
+    this.showForm = true;
+    this.editingUser = user;
+    this.selectedUser = user;
+    this.newUser = { ...user };
+  }
+
+  saveUser(): void {
+    if (this.editingUser) {
+      this.userService.updateUser(this.editingUser.id, this.newUser).subscribe(() => {
+        this.loadUsers();
+        this.cancelForm();
+      });
+    } else {
+      this.userService.createUser(this.newUser).subscribe(() => {
+        this.loadUsers();
+        this.cancelForm();
       });
     }
   }
@@ -105,6 +176,19 @@ export class UsersComponent implements OnInit {
 
   goToPasswords(userId: number) {
     this.router.navigate(['/seguridad/passwords', userId]);
+  deleteUser(id: number): void {
+    if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+      this.userService.deleteUser(id).subscribe(() => {
+        this.loadUsers();
+      });
+    }
+  }
+
+  cancelForm(): void {
+    this.showForm = false;
+    this.editingUser = null;
+    this.selectedUser = null;
+    this.newUser = { id: 0, name: '', email: '', password: '' };
   }
 
   goToProfile(userId: number) {

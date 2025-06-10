@@ -1,0 +1,18 @@
+<div class="signature-wrapper">
+  <h2>Mi Firma Digital</h2>
+
+  <div *ngIf="isLoading">Cargando...</div>
+
+  <div *ngIf="!isLoading && signature">
+    <p>Firma registrada:</p>
+    <img *ngIf="getSignatureImageUrl()" [src]="getSignatureImageUrl()" alt="Firma Digital" />
+    <p>Fecha: {{ signature.created_at | date:'short' }}</p>
+  </div>
+
+  <div class="upload-section">
+    <label for="file">Subir nueva firma:</label>
+    <input type="file" id="file" (change)="onFileSelected($event)" />
+
+    <button (click)="uploadSignature()" [disabled]="!selectedFile">Subir</button>
+  </div>
+</div>

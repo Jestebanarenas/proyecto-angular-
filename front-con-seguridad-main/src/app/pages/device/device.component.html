@@ -1,0 +1,16 @@
+<div class="device-container">
+  <h2>Mis Dispositivos</h2>
+
+  <div class="form-group">
+    <input type="text" placeholder="Nombre del dispositivo" [(ngModel)]="newDevice.name" />
+    <input type="text" placeholder="Dirección IP" [(ngModel)]="newDevice.ip" />
+    <input type="text" placeholder="Sistema operativo (opcional)" [(ngModel)]="newDevice.operating_system" />
+    <button (click)="addDevice()">Registrar</button>
+  </div>
+
+  <ul>
+    <li *ngFor="let d of devices">
+      <strong>{{ d.name }}</strong> - {{ d.ip }} <span *ngIf="d.operating_system">({{ d.operating_system }})</span>
+    </li>
+  </ul>
+</div>

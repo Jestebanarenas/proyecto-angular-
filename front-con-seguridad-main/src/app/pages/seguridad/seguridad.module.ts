@@ -10,6 +10,9 @@ import { ProfileComponent } from '../profile/profile.component';
 import { PermissionComponent } from '../permission/permission.component';
 import { PermissionCreateComponent } from '../permission-create/permission-create.component';
 import { RolePermissionComponent } from '../role-permission/role-permission.component';
+import { DigitalSignatureComponent } from '../digitalsignature/digitalsignature.component';
+import { DeviceComponent } from '../device/device.component';
+// Agregar estos componentes que están usando ngModel
 
 @NgModule({
   declarations: [
@@ -20,11 +23,13 @@ import { RolePermissionComponent } from '../role-permission/role-permission.comp
     ProfileComponent,
     PermissionComponent,
     PermissionCreateComponent,      
-    RolePermissionComponent         
+    RolePermissionComponent,       
+    DigitalSignatureComponent,
+    DeviceComponent,
   ],
   imports: [
     CommonModule,
-    FormsModule,
+    FormsModule, // Esto es crucial para ngModel
     SeguridadRoutingModule
   ]
 })
