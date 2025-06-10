@@ -36,7 +36,7 @@ export class AdminGuard implements CanActivate {
     } else {
       console.log('Usuario sin permisos de admin:', user);
       console.log('Email del usuario:', user.email); // Para debug
-      Swal.fire("Acceso Denegado", `No tiene permisos de administrador. Email: ${user.email}`, "error");
+      Swal.fire("Acceso Denegado", `No tiene permisos de administrador para acceder a esta sección.\nEmail: ${user.email}`, "error");
       this.router.navigate(['/dashboard']);
       return false;
     }
@@ -45,12 +45,11 @@ export class AdminGuard implements CanActivate {
   private isAdminUser(user: any): boolean {
     console.log('Verificando si es admin:', user);
     
-    // Lista de emails autorizados (AGREGA TU EMAIL AQUÍ)
+    // Lista de emails autorizados (AGREGA TU EMAIL REAL AQUÍ)
     const adminEmails = [
       'admin@gmail.com',
-      'tu-email@gmail.com', // Reemplaza con tu email real
-      'xmaxt@ejemplo.com',
-      'juan.ballesteros30224@ucaldas.edu.co' // Ejemplo, cambia por tu email
+      'juan.ballesteros30224@ucaldas.edu.co', // Tu email real
+      'administrador@sistema.com',
       // Agrega más emails aquí según necesites
     ];
     
@@ -65,6 +64,7 @@ export class AdminGuard implements CanActivate {
     }
     
     console.log('Usuario NO autorizado como admin:', user.email);
+    console.log('Emails autorizados:', adminEmails);
     return false;
   }
 }

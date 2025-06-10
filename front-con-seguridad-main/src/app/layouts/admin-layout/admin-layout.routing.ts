@@ -44,12 +44,12 @@ export const AdminLayoutRoutes: Routes = [
     { 
         path: 'answers/:id', 
         component: AnswerComponent,
-        canActivate: [AuthGuard] // Solo usuarios autenticados - PROTEGIDO
+        canActivate: [AuthGuard, AdminGuard] // SOLO ADMINISTRADORES - CAMBIO AQUÍ
     },
     { 
         path: 'security-questions', 
         component: SecurityQuestionComponent,
-        canActivate: [AuthGuard] // Solo usuarios autenticados - PROTEGIDO
+        canActivate: [AuthGuard, AdminGuard] // SOLO ADMINISTRADORES - CAMBIO AQUÍ
     },
     { 
         path: 'seguridad', 

@@ -20,8 +20,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/login', title: 'Login', icon: 'ni-key-25 text-info', class: '', type: 0 },
     { path: '/register', title: 'Register', icon: 'ni-circle-08 text-pink', class: '', type: 0 },
     { path: '/theaters/list', title: 'Teatros', icon: 'ni-circle-08 text-pink', class: '', type: 1 },
-    { path: '/security-questions', title: 'Preguntas de Seguridad', icon: 'ni-chat-round text-purple', class: '', type: 1 },
-    { path: '/answers/1', title: 'Mis Respuestas', icon: 'ni-check-bold text-success', class: '', type: 1 },
+    { path: '/security-questions', title: 'Preguntas de Seguridad', icon: 'ni-chat-round text-purple', class: '', type: 3 }, // CAMBIO: Solo admin
+    { path: '/answers/1', title: 'Mis Respuestas', icon: 'ni-check-bold text-success', class: '', type: 3 }, // CAMBIO: Solo admin
     { path: '/seguridad', title: 'Administración', icon: 'ni-lock-circle-open text-danger', class: '', type: 3 } // Solo admin
 ];
 
@@ -80,8 +80,8 @@ export class SidebarComponent implements OnInit {
     const adminEmails = [
       'admin@gmail.com',
       'tu-email@gmail.com', // Reemplaza con tu email real
-      'xmaxt@ejemplo.com',
-      'juan.ballesteros30224@ucaldas.edu.co' // Ejemplo, cambia por tu email
+      'xmaxt@ejemplo.com', // Ejemplo, cambia por tu email
+      'juan.ballesteros30224@ucaldas.edu.co' // Agrega tu email real aquí
       // Agrega más emails aquí según necesites
     ];
     
