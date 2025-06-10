@@ -8,7 +8,7 @@ import { DigitalSignature } from '../models/digitalsignature.model';
   providedIn: 'root'
 })
 export class DigitalSignatureService {
-  private apiUrl = `${environment.apiUrl}/digital-signature`;
+  private apiUrl = `${environment.apiUrl}/digital-signatures`;
 
   constructor(private http: HttpClient) {}
 
