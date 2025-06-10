@@ -13,12 +13,17 @@
     <input id="answer" type="text" [(ngModel)]="answerText" />
   </div>
 
-  <button (click)="saveAnswer()">Guardar Respuesta</button>
+  <button (click)="saveAnswer()">
+    {{ editingAnswer ? 'Actualizar' : 'Guardar' }} Respuesta
+  </button>
+  <button *ngIf="editingAnswer" (click)="resetForm()">Cancelar</button>
 
   <h3>Mis Respuestas</h3>
   <ul>
     <li *ngFor="let ua of userAnswers">
-      <strong>{{ ua.question.question }}:</strong> {{ ua.answer }}
+      <strong>{{ ua.question?.question || ua.security_question_id }}:</strong> {{ ua.content }}
+      <button (click)="editAnswer(ua)">Editar</button>
+      <button (click)="deleteAnswer(ua)">Eliminar</button>
     </li>
   </ul>
 </div>

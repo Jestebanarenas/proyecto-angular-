@@ -13,7 +13,7 @@ export class UserAnswerService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<UserAnswer[]> {
-    return this.http.get<UserAnswer[]>(`${this.apiUrl}`);
+    return this.http.get<UserAnswer[]>(`${this.apiUrl}/`);
   }
 
   getByUserId(userId: number): Observable<UserAnswer[]> {

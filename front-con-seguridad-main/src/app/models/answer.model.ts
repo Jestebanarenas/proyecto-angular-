@@ -8,4 +8,6 @@ export interface UserAnswer {
   content: string;
   created_at?: Date;
   updated_at?: Date;
+  question?: SecurityQuestion; // Relación opcional para mostrar la pregunta
+  user?: User; // Relación opcional si el backend la retorna
 }
