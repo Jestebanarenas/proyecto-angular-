@@ -14,10 +14,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let role of roles">
-        <td>{{role.id}}</td>
-        <td>{{role.name}}</td>
-        <td>{{role.description}}</td>
-        <td>
+        <td data-label="ID">{{role.id}}</td>
+        <td data-label="Name">{{role.name}}</td>
+        <td data-label="Description">{{role.description}}</td>
+        <td data-label="Options">
           <button type="button" class="btn-link" (click)="goToRolePermissions(role.id)">Permissions</button> |
           <a href="#" (click)="openEditRole(role); $event.preventDefault()">Update</a> |
           <a href="#" (click)="deleteRole(role); $event.preventDefault()">Delete</a>
@@ -44,8 +44,4 @@
   </div>
 </div>
 
-<script>
-goToRolePermissions(roleId: number) {
-  this.router.navigate(['/seguridad/role-permissions'], { queryParams: { roleId } });
-}
-</script>
+
