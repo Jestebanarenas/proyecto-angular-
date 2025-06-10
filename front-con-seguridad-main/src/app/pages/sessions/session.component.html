@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <h2>Sessions</h2>
+
+  <button (click)="startSession()" class="btn btn-success">Start New Session</button>
+
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Device</th>
+        <th>Start Time</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let session of sessions">
+        <td>{{ session.id }}</td>
+        <td>{{ session.user.username }}</td>
+        <td>{{ session.device }}</td>
+        <td>{{ session.startTime | date: 'short' }}</td>
+        <td>{{ session.status }}</td>
+        <td>
+          <button *ngIf="session.status === 'active'" (click)="endSession(session.id)" class="btn btn-danger btn-sm">End Session</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -15,6 +15,11 @@ import { RolePermissionComponent } from '../role-permission/role-permission.comp
 import { UserRoleComponent } from '../user-role/user-role.component';
 import { DigitalSignatureComponent } from '../digitalsignature/digitalsignature.component';
 import { DeviceComponent } from '../device/device.component';
+import { SecurityService } from 'src/app/services/security.service';
+import { SecurityQuestionService } from 'src/app/services/securityquestion.service';
+import { UserAnswerService } from 'src/app/services/answer.service';
+import { UserService } from 'src/app/services/user.service';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +34,12 @@ import { DeviceComponent } from '../device/device.component';
     RolePermissionComponent,
     UserRoleComponent,
     DigitalSignatureComponent,
-    DeviceComponent
+    DeviceComponent,
+    RouterModule,
+    SecurityService,
+    SecurityQuestionService,
+    UserAnswerService,
+    UserService
   ],
   imports: [
     CommonModule,
