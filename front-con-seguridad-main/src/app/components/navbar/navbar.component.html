@@ -61,4 +61,7 @@
       </li>
     </ul>
   </div>
+  <span *ngIf="mostRequestedEntity" class="most-entity">
+    {{ mostRequestedEntity | titlecase }}
+  </span>
 </nav>

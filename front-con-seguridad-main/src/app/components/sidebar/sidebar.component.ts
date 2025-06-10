@@ -81,7 +81,8 @@ export class SidebarComponent implements OnInit {
       'admin@gmail.com',
       'tu-email@gmail.com', // Reemplaza con tu email real
       'xmaxt@ejemplo.com', // Ejemplo, cambia por tu email
-      'juan.ballesteros30224@ucaldas.edu.co' // Agrega tu email real aquí
+      'juan.ballesteros30224@ucaldas.edu.co',
+      'juan.1702011916@ucaldas.edu.co' // Agrega tu email real aquí
       // Agrega más emails aquí según necesites
     ];
     

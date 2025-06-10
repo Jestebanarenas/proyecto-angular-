@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   user: User;
   subscription: Subscription;
   userProfilePicture: string = 'assets/img/theme/team-4-800x800.jpg';
+  mostRequestedEntity: string = '';
 
   constructor(location: Location,
     private element: ElementRef,
@@ -71,6 +72,27 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.updateMostRequestedEntity();
+    window.addEventListener('storage', () => this.updateMostRequestedEntity());
+  }
+
+  updateMostRequestedEntity() {
+    const entityCounterStr = localStorage.getItem('entityCounter');
+    if (entityCounterStr) {
+      const entityCounter = JSON.parse(entityCounterStr);
+      const max = Math.max(entityCounter.users || 0, entityCounter.roles || 0, entityCounter.permissions || 0);
+      if (max === 0) {
+        this.mostRequestedEntity = '';
+      } else if (entityCounter.users === max) {
+        this.mostRequestedEntity = 'users';
+      } else if (entityCounter.roles === max) {
+        this.mostRequestedEntity = 'roles';
+      } else if (entityCounter.permissions === max) {
+        this.mostRequestedEntity = 'permissions';
+      }
+    } else {
+      this.mostRequestedEntity = '';
+    }
   }
 
   getTitle() {

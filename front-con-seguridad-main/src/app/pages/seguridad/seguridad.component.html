@@ -12,6 +12,27 @@
     </ul>
   </aside>
   <main class="seguridad-main">
+    <div class="entity-counter-bar">
+      <span><b>Users:</b> {{ usersCount }}</span>
+      <span><b>Roles:</b> {{ rolesCount }}</span>
+      <span><b>Permissions:</b> {{ permissionsCount }}</span>
+    </div>
     <router-outlet></router-outlet>
   </main>
 </div>
+
+<style>
+.entity-counter-bar {
+  display: flex;
+  gap: 2rem;
+  background: #f5f5f7;
+  border-radius: 8px;
+  padding: 12px 24px;
+  margin-bottom: 18px;
+  font-size: 1.1em;
+  color: #233876;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(44, 50, 80, 0.06);
+  justify-content: flex-start;
+}
+</style>

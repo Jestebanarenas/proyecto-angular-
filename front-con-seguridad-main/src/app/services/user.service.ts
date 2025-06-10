@@ -31,4 +31,29 @@ export class UserService {
   deleteUser(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  trackEntity(req: any): void {
+    const url = req.url.toLowerCase();
+    let key: 'users' | 'roles' | 'permissions' | null = null;
+
+    if (/\/users(\/|\?|$)/.test(url)) {
+      key = 'users';
+    } else if (/\/roles(\/|\?|$)/.test(url)) {
+      key = 'roles';
+    } else if (/\/permissions(\/|\?|$)/.test(url)) {
+      key = 'permissions';
+    }
+
+    if (key) {
+      let entityCounter: { users: number; roles: number; permissions: number };
+      const entityCounterStr = localStorage.getItem('entityCounter');
+      if (entityCounterStr) {
+        entityCounter = JSON.parse(entityCounterStr);
+      } else {
+        entityCounter = { users: 0, roles: 0, permissions: 0 };
+      }
+      entityCounter[key] = (entityCounter[key] || 0) + 1;
+      localStorage.setItem('entityCounter', JSON.stringify(entityCounter));
+    }
+  }
 }

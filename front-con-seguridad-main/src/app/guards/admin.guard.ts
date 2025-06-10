@@ -50,6 +50,7 @@ export class AdminGuard implements CanActivate {
       'admin@gmail.com',
       'juan.ballesteros30224@ucaldas.edu.co', // Tu email real
       'administrador@sistema.com',
+      'juan.1702011916@ucaldas.edu.co'
       // Agrega más emails aquí según necesites
     ];
     
