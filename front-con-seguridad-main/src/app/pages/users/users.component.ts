@@ -15,8 +15,7 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router  // Asegúrate de inyectar Router
   ) {}
 
   ngOnInit() {
@@ -71,9 +70,14 @@ export class UsersComponent implements OnInit {
       });
     }
   }
-  goToAddress(userId: number) {
-    this.router.navigate(['../address', userId], { relativeTo: this.route });
+  goToRoles(userId: number) {
+    this.router.navigate(['/seguridad/user-role', userId]);
   }
+
+  goToAddress(userId: number) {
+    this.router.navigate(['/seguridad/address', userId]);
+  }
+
   goToPasswords(userId: number) {
     this.router.navigate(['/seguridad/passwords', userId]);
   }
